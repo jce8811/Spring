@@ -38,7 +38,7 @@ margin-top: 200px;
 		<table class="table">
 			<thead>
 				<tr>
-					<th>글번호</th>
+					<th>글번호1</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>날짜</th>
