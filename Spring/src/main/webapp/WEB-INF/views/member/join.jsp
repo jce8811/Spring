@@ -71,7 +71,7 @@ label{
 				<div class="form-group">
 						<label class="col-sm-3 col-form-label">이메일</label>
 						<div class="col-sm-5">
-							<input type="email" class="form-control" name="mmail" path="mmail">
+							<input type="email" class="form-control" name="mmail">
 						<errors path="mmail">		
 						</div>
 				</div>

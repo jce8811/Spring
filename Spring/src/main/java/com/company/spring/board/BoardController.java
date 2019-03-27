@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,14 @@ public class BoardController {
 		mv.addObject("map", map);
 		mv.setViewName("board/list");
 		return mv;
+	}
+	@RequestMapping(value = "/listPage.do", method=RequestMethod.GET)
+	public void listPage(@ModelAttribute("cri") Criteria cri, Model model, PageMaker pagemaker) throws Exception{
+		List<BoardVO> list = boardservice.listPage(cri);
+		model.addAttribute("list", list);
+		pagemaker.setCri(cri);
+		pagemaker.setTotalCount(boardservice.listCount());
+		model.addAttribute("pagemaker", pagemaker);
 	}
 	// 작성 페이지
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)

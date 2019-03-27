@@ -26,6 +26,9 @@ public class BoardDAO {
 		map.put("keyword", keyword);
 		return sqlsession.selectList("board.list", map);
 	}
+	public List<BoardVO> listPage(Criteria cri) {
+		return sqlsession.selectList("board.listPage", cri);
+	}
 	public BoardVO updateRead(int bidx) throws Exception{
 		return sqlsession.selectOne("board.updateview", bidx);
 	}
@@ -37,5 +40,8 @@ public class BoardDAO {
 	}
 	public void delete(int bidx) throws Exception{
 		sqlsession.delete("board.delete", bidx);
+	}
+	public int listCount() {
+		return sqlsession.selectOne("board.listCount");
 	}
 }

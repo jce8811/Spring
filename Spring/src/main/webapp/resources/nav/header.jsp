@@ -43,7 +43,7 @@ a{
             <li><a href="${path}/board/list.do">게시판</a></li>
           </ul>
           <ul class="nav navbar-nav">
-            <li><a href="#">갤러리</a></li>
+            <li><a href="${path}/board/listPage.do">게시판 페이징</a></li>
           </ul>
           <ul class="nav navbar-nav">
             <li><a href="#">회원관리</a></li>

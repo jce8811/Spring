@@ -40,7 +40,7 @@ $(document).ready(function(){
 	</div>
 	<div class="col-sm-6">
 	<form name="drop" method="post">
-		<div class=”panel panel-default“>
+		<div class="panel panel-default">
 			<div class=”panel-heading“>비밀번호 확인</div>
 			<div class=”panel-body“>
 				<input type="password" class="form-control" name="mpw" autocomplete="off" placeholder="비밀번호">

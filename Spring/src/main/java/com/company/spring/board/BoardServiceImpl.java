@@ -34,7 +34,12 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> list(String searchOption, String keyword) throws Exception {
 		return dao.list(searchOption, keyword);
 	}
-
+	
+	@Override
+	public List<BoardVO> listPage(Criteria cri) throws Exception {
+		return dao.listPage(cri);
+	}
+	
 	@Override
 	public BoardVO updateCnt(int bidx) throws Exception {
 		dao.updateCnt(bidx);
@@ -56,6 +61,12 @@ public class BoardServiceImpl implements BoardService{
 	public void delete(int bidx) throws Exception {
 		dao.delete(bidx);
 	}
+
+	@Override
+	public int listCount() throws Exception {
+		return dao.listCount();
+	}
+
 
 
 

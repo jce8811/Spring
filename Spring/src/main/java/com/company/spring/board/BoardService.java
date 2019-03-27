@@ -11,4 +11,6 @@ public interface BoardService {
 	public BoardVO updateRead(int bidx) throws Exception;
 	public void update(BoardVO vo) throws Exception;
 	public void delete(int bidx) throws Exception;
+	public List<BoardVO> listPage(Criteria cri) throws Exception;
+	public int listCount() throws Exception;
 }

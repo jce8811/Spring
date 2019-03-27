@@ -7,7 +7,20 @@
 	<include refid="search"/>
 	</select>
 	
+	<select id="listPage" parameterType="com.company.spring.board.Criteria" resultType="com.company.spring.board.BoardVO">
+		SELECT R1.* FROM (
+			SELECT *
+			FROM board_tb 
+       		ORDER BY bidx desc
+       	 	)R1 
+            LIMIT #{rowStart},#{rowEnd} 		 
+	</select>
 	
+	<select id="listCount" resultType="int">
+		SELECT count(bidx)
+		FROM board_tb
+		WHERE bidx > 0
+	</select>
 	<insert id="insert">
 		INSERT INTO board_tb
 			(btitle, bwriter, bcontent, bdate, bcnt)
