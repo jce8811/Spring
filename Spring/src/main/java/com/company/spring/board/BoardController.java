@@ -1,18 +1,14 @@
 package com.company.spring.board;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -21,29 +17,16 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardservice;
-	//목록 페이지
-	@RequestMapping(value="/list.do")
-	public ModelAndView list(@RequestParam(defaultValue="all") String searchOption,
-							@RequestParam(defaultValue="") String keyword) throws Exception{
-		
-		
-		List<BoardVO> list = boardservice.list(searchOption, keyword);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("search", searchOption);
-		map.put("keyword", keyword);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("map", map);
-		mv.setViewName("board/list");
-		return mv;
-	}
-	@RequestMapping(value = "/listPage.do", method=RequestMethod.GET)
-	public void listPage(@ModelAttribute("cri") Criteria cri, Model model, PageMaker pagemaker) throws Exception{
-		List<BoardVO> list = boardservice.listPage(cri);
+
+	// 글목록 + 페이징 + 검색
+	@RequestMapping(value = "/listSearch.do", method=RequestMethod.GET)
+	public void listSearch(SearchCriteria scri, Model model, PageMaker pagemaker) throws Exception{
+		List<BoardVO> list = boardservice.listSearch(scri);
 		model.addAttribute("list", list);
-		pagemaker.setCri(cri);
-		pagemaker.setTotalCount(boardservice.listCount());
+		pagemaker.setCri(scri);
+		pagemaker.setTotalCount(boardservice.countSearch(scri));
 		model.addAttribute("pagemaker", pagemaker);
+		
 	}
 	// 작성 페이지
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)

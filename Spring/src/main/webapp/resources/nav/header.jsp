@@ -39,11 +39,8 @@ a{
           <a class="navbar-brand" href="${path}/">지철언의 포트폴리오</a>
         </div>
         <div id="navbar">
-          <ul class="nav navbar-nav">
-            <li><a href="${path}/board/list.do">게시판</a></li>
-          </ul>
-          <ul class="nav navbar-nav">
-            <li><a href="${path}/board/listPage.do">게시판 페이징</a></li>
+           <ul class="nav navbar-nav">
+            <li><a href="${path}/board/listSearch.do">글목록(페이징,검색)</a></li>
           </ul>
           <ul class="nav navbar-nav">
             <li><a href="#">회원관리</a></li>

@@ -33,12 +33,11 @@ margin-top: 200px;
 <c:import url="/resources/nav/header.jsp"/>
 <body>
 <div class="container">
-	<form name="form" method="post" action="${path}/board/list.do">
-	</form>	
+	
 		<table class="table">
 			<thead>
 				<tr>
-					<th>글번호1</th>
+					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>날짜</th>
@@ -58,18 +57,40 @@ margin-top: 200px;
 			</tbody>
 			<tr>
 		</table>
+		<div class="search">
+		 <select name="searchType">
+		  <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>모두보기</option>
+		  <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+		  <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+		  <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+		 </select>
+		 
+		 <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+		
+		 <button id="searchBtn">검색</button>
+		
+		 <script>
+				 $(function(){
+				  $('#searchBtn').click(function() {
+				   self.location = "${path}/board/listSearch.do" + '${pagemaker.makeQuery(1)}'
+				     + "&searchType=" + $("select option:selected").val()
+				     + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+				    });
+				 });   
+		</script>
+	</div>
 		<div>
 			 <ul>
 			  <c:if test="${pagemaker.prev}">
-			   <li><a href="listPage.do${pagemaker.makeQuery(pagemaker.startPage - 1)}">이전</a></li>
+			   <li><a href="listSearch.do${pagemaker.makeSearch(pagemaker.startPage - 1)}">이전</a></li>
 			  </c:if> 
 			  
 			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="bidx">
-			   <li><a href="listPage.do${pagemaker.makeQuery(bidx)}">${bidx}</a></li>
+			   <li><a href="listSearch.do${pagemaker.makeSearch(bidx)}">${bidx}</a></li>
 			  </c:forEach>
 			    
 			  <c:if test="${pagemaker.next && pagemaker.endPage > 0}">
-			   <li><a href="listPage.do${pagemaker.makeQuery(pagemaker.endPage + 1)}">다음</a></li>
+			   <li><a href="listSearch.do${pagemaker.makeSearch(pagemaker.endPage + 1)}">다음</a></li>
 			  </c:if> 
 			 </ul>
 		</div>	
@@ -77,5 +98,6 @@ margin-top: 200px;
 		<a class="btn btn-default" id="bWrite">글작성</a>
 	</c:if>
 </div>
+
 </body>
 </html>

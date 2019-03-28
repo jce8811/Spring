@@ -11,6 +11,11 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	BoardDAO dao;
+
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria scri) throws Exception {
+		return dao.listSearch(scri);
+	}
 	
 	@Override
 	public void insert(BoardVO vo) throws Exception {
@@ -30,16 +35,6 @@ public class BoardServiceImpl implements BoardService{
 		return dao.read(bidx);
 	}
 
-	@Override
-	public List<BoardVO> list(String searchOption, String keyword) throws Exception {
-		return dao.list(searchOption, keyword);
-	}
-	
-	@Override
-	public List<BoardVO> listPage(Criteria cri) throws Exception {
-		return dao.listPage(cri);
-	}
-	
 	@Override
 	public BoardVO updateCnt(int bidx) throws Exception {
 		dao.updateCnt(bidx);
@@ -63,9 +58,10 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int listCount() throws Exception {
-		return dao.listCount();
+	public int countSearch(SearchCriteria scri) throws Exception {
+		return dao.countSearch(scri);
 	}
+
 
 
 
