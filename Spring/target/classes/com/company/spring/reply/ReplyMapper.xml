@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+	<insert id="insert">
+		INSERT INTO reply_tb
+			(bidx, rcontent, rwriter, rdate)
+		VALUES (#{bidx}, #{rcontent}, #{rwriter}, now())	
+	</insert>
+	<select id="list" resultType="com.company.spring.reply.ReplyVO">
+		SELECT ridx, bidx, rcontent, rwriter, mid, rdate
+		FROM reply_tb r, member_tb m
+		WHERE r.rwriter = m.mid AND bidx=#{bidx}
+		ORDER BY ridx
+	</select>
+</mapper>
