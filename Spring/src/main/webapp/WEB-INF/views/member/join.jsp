@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,11 +36,12 @@ label{
 		<div class="col-sm-6"></div>
 		<div class="col-sm-6">
 		<h2>회원가입</h2>
-			<form class="form-horizontal" id="member" action="${path}/member/memberInsert.do" method="post" onsubmit="return checkValue()">
+			<form:form role="form" class="form-horizontal" commandName="register" action="${path}/member/joinResult.do" method="post">
 				<div class="form-group">	
 						<label class="col-sm-3 col-form-label">아이디</label>	
 						<div class="col-sm-4">
-							<input type="text" class="form-control" name="mid" id="mid">
+							<form:input type="text" class="form-control" path="mid"/>
+							<form:errors path="mid"/>
 							<button type="button" class="checkId">중복확인</button>
 						</div>
 						<p class="result">
@@ -50,35 +52,38 @@ label{
 				<div class="form-group">
 						<label class="col-sm-3 col-form-label">비밀번호</label>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" name="mpw">
+							<form:input type="password" class="form-control" path="mpw"/>
+							<form:errors path="mpw"/>
 						</div>
 				</div>
 				
 				<div class="form-group">
 						<label class="col-sm-3 col-form-label">비밀번호 확인</label>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" name="mpwcheck">
+							<form:input type="password" class="form-control"  path="checkPw"/>
+							<form:errors path="checkPw"/>
 						</div>	
 				</div>
 				
 				<div class="form-group">
 						<label class="col-sm-3 col-form-label">이름</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="mname">
+							<form:input type="text" class="form-control"  path="mname"/>
+							<form:errors path="mname"/>
 						</div>
 				</div>
 				
 				<div class="form-group">
 						<label class="col-sm-3 col-form-label">이메일</label>
 						<div class="col-sm-5">
-							<input type="email" class="form-control" name="mmail">
-						<errors path="mmail">		
+						<form:input type="email" class="form-control"  path="mmail"/>
+						<form:errors path="mmail"/>		
 						</div>
 				</div>
 						
 				<button type="reset" class="btn btn-default" style="float:right;">취소</button>
 				<button type="submit" class="btn btn-default" id="submit" disabled="disabled" style="float:right;">회원등록</button>						
-			</form>
+			</form:form>
 		</div>		
 		</div>
 <script> 

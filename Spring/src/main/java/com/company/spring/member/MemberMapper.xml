@@ -57,4 +57,9 @@
  	FROM member_tb
  	WHERE mid=#{mid}
  	</select>
+ 	<select id="selectByEmail" resultType="com.company.spring.member.MemberVO">
+ 	SELECT mmail,mname
+ 	FROM member_tb
+ 	WHERE mmail = #{mmail}
+ 	</select>
 </mapper>

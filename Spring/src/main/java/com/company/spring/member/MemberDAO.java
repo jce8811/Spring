@@ -15,8 +15,8 @@ public class MemberDAO{
 	@Autowired
 	SqlSession sqlsession;
 	
-	public void insertMember(MemberVO vo) throws Exception{
-		sqlsession.insert("member.insertMember", vo);
+	public void insertMember(Register reg) throws Exception{
+		sqlsession.insert("member.insertMember", reg);
 	}
 
 	public boolean loginCheck(MemberVO vo) throws Exception{
@@ -77,6 +77,8 @@ public class MemberDAO{
 		return sqlsession.selectOne("member.checkId", mid);
 	}
 
-
+	public MemberVO selectByEmail(String mmail) {
+		return (MemberVO)sqlsession.selectOne("member.selectByEmail", mmail);
+	}
 
 }

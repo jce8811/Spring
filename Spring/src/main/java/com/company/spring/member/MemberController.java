@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class MemberController {
 		return "member/step";
 	}
 	
-	@RequestMapping(value="/join.do", method=RequestMethod.GET)
+	@RequestMapping(value="/join.do", method=RequestMethod.POST)
 	public ModelAndView join(@RequestParam(value="agree", defaultValue="false") Boolean agree) throws Exception {
 		if(!agree) {
 			ModelAndView mv = new ModelAndView();
@@ -37,9 +38,26 @@ public class MemberController {
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("member/join");
+		mv.addObject("register", new Register());
 		return mv;
 	}
 	
+	@RequestMapping(value="/joinResult.do")
+	public ModelAndView joinResult(Register reg, Errors errors) throws Exception{
+		new RegisterValidator().validate(reg, errors);
+		if(errors.hasErrors()) {
+			ModelAndView mv = new ModelAndView("member/join");
+			return mv;
+		} try {
+			memberservice.register(reg);
+		} catch (ExistingEmailException e) {
+			errors.rejectValue("mmail", "duplicate", "이미 가입된 이메일입니다.");
+			ModelAndView mv = new ModelAndView("member/join");
+			return mv;
+		}
+		ModelAndView mv = new ModelAndView("member/joinResult");
+		return mv;
+	}
 	@RequestMapping(value="/login.do")
 	public String login() throws Exception{
 		return "member/login";
@@ -66,11 +84,11 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/memberInsert.do")
-	public String memberInsert(MemberVO vo) throws Exception{
-			memberservice.insertMember(vo);
-			return "member/login";
-		}
+//	@RequestMapping(value="/memberInsert.do")
+//	public String memberInsert(MemberVO vo) throws Exception{
+//			memberservice.insertMember(vo);
+//			return "member/login";
+//		}
 	@RequestMapping(value="/findId.do")
 	public String findId() throws Exception{
 		return "member/findId";

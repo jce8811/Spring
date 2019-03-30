@@ -37,7 +37,7 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <br/>
-		<form role="form" action="${path}/member/join.do">
+		<form role="form" action="${path}/member/join.do" method="post">
 			<div class="form-group">
 				<label class="checkbox-inline">
 				<input type="checkbox" name="agree" value="true">동의합니다.
