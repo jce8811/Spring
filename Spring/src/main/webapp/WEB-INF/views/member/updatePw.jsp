@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>비밀번호 변경</title>
 <script>
-
 function changeValue(){
 	if(!document.member.mpw.value){
 		alert("새로운 비밀번호를 입력하세요.");
@@ -24,7 +23,6 @@ function changeValue(){
 		return false;
 	}	
 }
-
 </script>
 <style>
 .container{
