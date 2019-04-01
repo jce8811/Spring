@@ -42,7 +42,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/joinResult.do")
+	@RequestMapping(value="/joinResult.do", method=RequestMethod.POST)
 	public ModelAndView joinResult(Register reg, Errors errors) throws Exception{
 		new RegisterValidator().validate(reg, errors);
 		if(errors.hasErrors()) {

@@ -23,13 +23,11 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public void update(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void delete(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
