@@ -5,8 +5,8 @@
  	<!-- 회원가입 -->
  	<insert id="insertMember">
  	INSERT INTO member_tb
- 	(mid, mpw, mname, mmail, menter)
- 	VALUES (#{mid},#{mpw},#{mname},#{mmail},now())	
+ 	(mid, mpw, mname, mmail, mgrade, menter)
+ 	VALUES (#{mid},#{mpw},#{mname},#{mmail}, '0', now())	
  	</insert>
  	<!-- 로그인 -->
  	<select id="checkLogin" resultType="String">

@@ -20,7 +20,7 @@
 	</div>
 	<div class="col-sm-6"></div>
 	<div class="col-sm-6"> 
-		<div class="alert alert-success">
+		<div class="alert alert-success" style="margin-top:300px;">
 		        축하드립니다, 성공적으로 회원가입이 되었습니다!
 		</div>
 	</div>

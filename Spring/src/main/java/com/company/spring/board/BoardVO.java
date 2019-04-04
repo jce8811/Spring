@@ -10,6 +10,8 @@ public class BoardVO {
 	private Date bdate;
 	private int bcnt;
 	private String mid;
+	private String bvalue;
+	private int bcntNum;
 	
 	public int getBidx() {
 		return bidx;
@@ -54,11 +56,25 @@ public class BoardVO {
 		this.mid = mid;
 	}
 	
+	public String getBvalue() {
+		return bvalue;
+	}
+	public void setBvalue(String bvalue) {
+		this.bvalue = bvalue;
+	}
+	
+	public int getBcntNum() {
+		return bcntNum;
+	}
+	public void setBcntNum(int bcntNum) {
+		this.bcntNum = bcntNum;
+	}
+	
 	@Override
 	public String toString() {
 		return "BoardVO [bidx=" + bidx + ", bwriter=" + bwriter + ", btitle=" + btitle + ", bcontent=" + bcontent
-				+ ", bdate=" + bdate + ", bcnt=" + bcnt + ", mid=" + mid + "]";
+				+ ", bdate=" + bdate + ", bcnt=" + bcnt + ", mid=" + mid + ", bvalue=" + bvalue + ", bcntNum=" + bcntNum
+				+ "]";
 	}
-	
 	
 }

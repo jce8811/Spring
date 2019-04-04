@@ -18,7 +18,7 @@
 <script>
 $(document).ready(function(){
 	$("#bList").click(function(){
-		location.href="${path}/board/list.do?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
+		location.href="${path}/board/listSearch.do?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
 	})
 })
 function checkValue(){
@@ -34,26 +34,27 @@ function checkValue(){
 <style>
 .container{
 	margin-top: 200px;
-  	width: 1500px;
-  	max-width: none !important;
 }
 </style>
 <c:import url="/resources/nav/header.jsp"/>
 <body>
 <div class="container">
-	<form name="board" method="post" action="${path}/board/insert.do" onsubmit="return checkValue()">
-		<div class="form-group">
-			<label for="btitle" class="control-label">제목</label>
-			<input type="text" name="btitle" id="btitle" size="80">
-		</div>
-		<div class="form-group">
-			<label for="bcontent" class="control-label">내용</label>
-			<textarea name="bcontent" id="bcontent" rows="4" cols="80"></textarea>
-		</div>
-		<button type="reset" class="btn btn-default" style="float:right;">취소</button>
-		<button type="submit" class="btn btn-default" style="float:right;">작성완료</button>
-		<button type="button" id="bList">뒤로가기</button>	
-	</form>	
+	<div class="col-sm-6"></div>
+	<div class="col-sm-6">
+		<form name="board" method="post" action="${path}/board/insert.do" onsubmit="return checkValue()">
+			<div class="form-group">
+				<label for="btitle" class="control-label">제목</label>
+				<input type="text" class="form-control" name="btitle" id="btitle" size="80">
+			</div>
+			<div class="form-group">
+				<label for="bcontent" class="control-label">내용</label>
+				<textarea name="bcontent" id="bcontent" rows="4" cols="80"></textarea>
+			</div>
+			
+			<button type="button" class="btn btn-default" id="bList" style="float:right;">뒤로가기</button>	
+			<button type="submit" class="btn btn-default" style="float:right; margin-right:10px;">작성완료</button>
+		</form>	
+	</div>
 </div>
 </body>
 </html>

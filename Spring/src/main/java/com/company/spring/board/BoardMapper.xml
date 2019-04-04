@@ -3,7 +3,7 @@
 <mapper namespace="board">
 	<select id="listSearch"  parameterType="com.company.spring.board.SearchCriteria" resultType="com.company.spring.board.BoardVO">
 		SELECT R1.* FROM (
-			SELECT bidx, btitle, bcontent, bdate, bcnt, m.mid
+			SELECT bidx, btitle, bcontent, bdate, bcnt, m.mid, bvalue, (SELECT count(*) FROM reply_tb WHERE bidx=b.bidx) AS bcntNum
 			FROM board_tb b, member_tb m
 			where b.bwriter = m.mid
 			<include refid="search"></include>
@@ -20,8 +20,8 @@
 	
 	<insert id="insert">
 		INSERT INTO board_tb
-			(btitle, bwriter, bcontent, bdate, bcnt)
-		VALUES (#{btitle}, #{bwriter}, #{bcontent}, now(), 0)	
+			(btitle, bwriter, bcontent, bdate, bcnt, bvalue)
+		VALUES (#{btitle}, #{bwriter}, #{bcontent}, now(), 0, 'y')	
 	</insert>
 	
 	<select id="view" resultType="com.company.spring.board.BoardVO">
@@ -49,11 +49,11 @@
 		WHERE bidx = #{bidx}	
 	</update>
 	
-	<delete id="delete">
-		DELETE
-		FROM board_tb
+	<update id="delete">
+		UPDATE board_tb
+		SET bvalue = 'n' 
 		WHERE bidx = #{bidx}
-	</delete>
+	</update>
 	
 	
 	 <sql id="search">

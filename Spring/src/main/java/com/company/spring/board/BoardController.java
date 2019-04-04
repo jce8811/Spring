@@ -40,7 +40,7 @@ public class BoardController {
 		vo.setBwriter(bwriter);
 		
 		boardservice.insert(vo);
-		return "redirect:list.do";
+		return "redirect:listSearch.do";
 	}
 	// 글내용 페이지
 	@RequestMapping(value="/content.do", method=RequestMethod.GET)
@@ -67,6 +67,6 @@ public class BoardController {
 	@RequestMapping(value="/delete.do")
 	public String delete(int bidx) throws Exception{
 		boardservice.delete(bidx);
-		return "redirect:list.do";
+		return "redirect:listSearch.do";
 	}
 }

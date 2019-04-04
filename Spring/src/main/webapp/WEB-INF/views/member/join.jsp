@@ -91,7 +91,7 @@ $("#checkId").click(function(){
   data : query,
   success : function(data) {
   
-   if(data == 1) {
+   if(data == 1 || data == null) {
     $(".result .msg").text("사용 불가");
     $(".result .msg").attr("style", "color:#f00");    
     $("#submit").attr("disabled","disabled");

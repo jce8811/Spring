@@ -36,9 +36,8 @@ a{
             <li><a href="${path}/board/listSearch.do">글목록(페이징,검색)</a></li>
           </ul>
           <ul class="nav navbar-nav">
-            <li><a href="#">회원관리</a></li>
+            <li><a href="${path}/product/list.do">상품목록</a></li>
           </ul>
-          
 	          <ul class="nav navbar-nav navbar-right">
 	          	<c:choose>
 	          		<c:when test="${sessionScope.mid == null}">
@@ -54,6 +53,5 @@ a{
           </div>
        </div>
     </nav>
-
 </body>
 </html>
