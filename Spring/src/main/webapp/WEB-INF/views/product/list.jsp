@@ -12,13 +12,13 @@
 <script>
 	$(document).ready(function(){
 		$("#pWrite").click(function(){
-			location.href="${path}/product/upload.do";
+			location.href="${path}/admin/upload.do";
 		});
 	});
 </script>
 <style>
 .container {
-	margin-top : 200px;
+	margin-top : 150px;
 }
 </style>
 <body>
@@ -39,7 +39,7 @@
 	  				</a>
 	  			</td>
 	  			<td><a href="${path}/product/info.do/${row.pidx}">${row.pname}</a></td>
-	  			<td><fmt:formatNumber value="${row.pprice}" pattern="###,###,###"/></td>
+	  			<td><fmt:formatNumber value="${row.pprice}" pattern="###,###,###"/> 원</td>
 	  		</tr>
 	  	</c:forEach>
 	</table>

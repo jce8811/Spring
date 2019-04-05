@@ -14,7 +14,18 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void upload(ProductVO vo) throws Exception {
 		dao.upload(vo);
-		
+	}
+	@Override
+	public ProductVO modify(int pidx) throws Exception {
+		return dao.modify(pidx);
+	}
+	@Override
+	public void productModify(ProductVO vo) throws Exception {
+		dao.productModify(vo);
+	}
+	@Override
+	public void productDelete(int pidx) throws Exception {
+		dao.productDelete(pidx);
 	}
 
 }

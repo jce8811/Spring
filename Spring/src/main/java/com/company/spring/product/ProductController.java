@@ -15,15 +15,13 @@ public class ProductController {
 	ProductService productservice;
 	
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
-	public ModelAndView list() throws Exception{
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView list(ModelAndView mv) throws Exception{
 		mv.setViewName("product/list");
 		mv.addObject("list", productservice.list());
 		return mv;
 	}
 	@RequestMapping(value="/info.do/{pidx}")
-	public ModelAndView info(@PathVariable("pidx") int pidx) throws Exception{
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView info(@PathVariable("pidx") int pidx, ModelAndView mv) throws Exception{
 		mv.setViewName("product/info");
 		mv.addObject("vo", productservice.info(pidx));
 		return mv;

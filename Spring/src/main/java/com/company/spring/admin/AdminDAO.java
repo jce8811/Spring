@@ -15,4 +15,16 @@ public class AdminDAO {
 	public void upload(ProductVO vo) throws Exception{
 		sqlsession.selectOne("admin.upload", vo);
 	}
+
+	public ProductVO modify(int pidx) throws Exception{
+		return sqlsession.selectOne("admin.modify", pidx);
+	}
+
+	public void productModify(ProductVO vo) throws Exception{
+		sqlsession.update("admin.productModify", vo);
+	}
+
+	public void productDelete(int pidx) throws Exception{
+		sqlsession.delete("admin.productDelete", pidx);
+	}
 }
