@@ -4,7 +4,6 @@ import java.util.Date;
 
 
 public class MemberVO {
-	private int midx;
 	private String mid;
 	private String mpw;
 	private String mname;
@@ -12,12 +11,6 @@ public class MemberVO {
 	private int mgrade;
 	private Date menter;
 	
-	public int getMidx() {
-		return midx;
-	}
-	public void setMidx(int midx) {
-		this.midx = midx;
-	}
 	public String getMid() {
 		return mid;
 	}
@@ -55,5 +48,10 @@ public class MemberVO {
 		this.menter = menter;
 	}
 	
+	@Override
+	public String toString() {
+		return "MemberVO [mid=" + mid + ", mpw=" + mpw + ", mname=" + mname + ", mmail=" + mmail + ", mgrade=" + mgrade
+				+ ", menter=" + menter + "]";
+	}
 	
 }

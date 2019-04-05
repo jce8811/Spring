@@ -43,7 +43,6 @@
 	</div>
 	<div class="col-sm-6" style="margin-top:50px;">
 			<form name="info" method="post" action="${path}/member/infoUpdate.do" onsubmit="return updateInfo()">
-				<input type="hidden" name="midx" id="midx" value="${vo.midx}">
 					<div class="form-group">	
 						<label for="mid" class="col-sm-3 control-label">아이디</label>
 							<input type="text" class="form-control" id="mid" name="mid" value="${vo.mid}" readonly="readonly">

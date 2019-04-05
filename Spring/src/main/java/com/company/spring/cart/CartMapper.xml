@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+	
+	<!-- 장바구니 추가 -->
+	<insert id="insert">
+		INSERT INTO cart_tb
+			(mid, pidx, camount)
+		VALUES (#{mid}, #{pidx}, #{camount}) 
+	</insert>
+	
+	<!-- 장바구니 리스트 -->
+	<select id="list" resultType="com.company.spring.cart.CartVO">
+		SELECT c.cidx, m.mid, p.pidx, m.mname, p.pname, c.camount, p.pprice, (p.pprice * c.camount) AS cprice
+		FROM member_tb m, product_tb p, cart_tb c
+		WHERE m.mid = c.mid AND p.pidx = c.pidx AND c.mid = #{mid}
+		ORDER BY c.cidx 
+	</select>
+	
+	<!-- 장바구니 전체 금액 -->
+	<select id="sumPrice" resultType="int">
+		SELECT ifnull(SUM(p.pprice * c.camount), 0) AS cprice
+		FROM cart_tb c, product_tb p
+		WHERE c.pidx = p.pidx AND c.mid = #{mid}
+	</select>
+	
+	<!-- 장바구니 수량 수정 -->
+	<update id="modify">
+		UPDATE cart_tb
+		SET camount = #{camount}
+		WHERE mid = #{mid} AND pidx = #{pidx}
+	</update>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="delete">
+		DELETE FROM cart_tb
+		WHERE cidx = #{cidx}
+	</delete>
+	
+	<!-- 동일한 상품 확인 -->
+	<select id="countCart" resultType="int">
+		SELECT count(*)
+		FROM cart_tb
+		WHERE mid = #{mid} AND pidx = #{pidx}
+	</select>
+	
+	<!-- 동일한 상품 수량 수정 -->
+	<update id="updateCart">
+		UPDATE cart_tb
+		SET camount = camount + #{camount}
+		WHERE mid = #{mid} AND pidx = #{pidx}
+	</update>
+</mapper>

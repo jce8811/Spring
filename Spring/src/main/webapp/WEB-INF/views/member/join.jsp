@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,27 +82,28 @@
 		</div>
 <script> 
 $("#checkId").click(function(){
- var query = {
+ 
+	var query = {
 		 		mid : $("#mid").val()
 			 };
- 
- $.ajax({
-  url : "../member/checkId.do",
-  type : "post",
-  data : query,
-  success : function(data) {
-  
-   if(data == 1 || data == null) {
-    $(".result .msg").text("사용 불가");
-    $(".result .msg").attr("style", "color:#f00");    
-    $("#submit").attr("disabled","disabled");
-   } else {
-    $(".result .msg").text("사용 가능");
-    $(".result .msg").attr("style", "color:#00f");
-    $("#submit").removeAttr("disabled");
-   }
-  }
- });  // ajax 끝
+	
+	 $.ajax({
+	  url : "${path}/member/checkId.do",
+	  type : "post",
+	  data : query,
+	  success : function(data) {
+	  
+	   if(data == 1 ) {
+	    $(".result .msg").text("사용 불가");
+	    $(".result .msg").attr("style", "color:#f00");    
+	    $("#submit").attr("disabled","disabled");
+	   } else{
+	    $(".result .msg").text("사용 가능");
+	    $(".result .msg").attr("style", "color:#00f");
+	    $("#submit").removeAttr("disabled");
+	   }
+	  }
+	});  // ajax 끝
 });
 </script>
 </body>
