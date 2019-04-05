@@ -22,7 +22,7 @@ $(document).ready(function(){
 <body>
 <div class="container" style="margin-top:200px;">
 	<div class="col-sm-6">
-		<img src="${path}/productImage/${vo.pimage}" width="400px" height="300px">
+		<img src="${path}/${vo.pthumbimg}" width="400px" height="300px">
 	</div>	
 		<div class="col-sm-6">
 			<form id="form1" name="form1" method="post">

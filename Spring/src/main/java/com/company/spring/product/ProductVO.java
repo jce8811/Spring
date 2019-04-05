@@ -1,13 +1,12 @@
 package com.company.spring.product;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class ProductVO {
 	private int pidx;
 	private String pname;
 	private int pprice;
 	private String pinfo;
-	private MultipartFile pimage;
+	private String pimage;
+	private String pthumbimg;
 	
 	public int getPidx() {
 		return pidx;
@@ -33,19 +32,25 @@ public class ProductVO {
 	public void setPinfo(String pinfo) {
 		this.pinfo = pinfo;
 	}
-	public MultipartFile getPimage() {
+	public String getPimage() {
 		return pimage;
 	}
-	public void setPimage(MultipartFile pimage) {
+	public void setPimage(String pimage) {
 		this.pimage = pimage;
+	}
+	
+	public String getPthumbimg() {
+		return pthumbimg;
+	}
+	public void setPthumbimg(String pthumbimg) {
+		this.pthumbimg = pthumbimg;
 	}
 	
 	@Override
 	public String toString() {
 		return "ProductVO [pidx=" + pidx + ", pname=" + pname + ", pprice=" + pprice + ", pinfo=" + pinfo + ", pimage="
-				+ pimage + "]";
+				+ pimage + ", pthumbimg=" + pthumbimg + "]";
 	}
-	
 	
 	
 }

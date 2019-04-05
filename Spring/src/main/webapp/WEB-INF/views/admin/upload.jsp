@@ -29,28 +29,32 @@ $(document).ready(function(){
 		document.form1.submit();
 	});
 
-});		
+});
 </script>
 <body>
 <div class="container" style="margin-top:200px;">
+		
+  <form class="form-inline" id="form1" name="form1" method="post" enctype="multipart/form-data">
 	<div class="col-sm-6">
-	<img src="" width="400px" height="300px">
+		<input type="file" id="pimage" name="file" />
+		<div class="select_img"><img src=""/></div>
 	</div>
 		<div class="col-sm-6">
-		<form id="form1" name="form1" method="post">
-			<div>	
-				<label for="pname">상품명: </label>
-				<input type="text" id="pname" name="pname">
+			<div class="form-group">	
+				<label for="pname" >상품명: </label>
+				<input type="text" class="form-control" id="pname" name="pname">
 				
+			</div>
+			<div class="form-group">
 				<label for="pprice" style="margin-left:10px;">상품가격: </label>
-				<input type="text" id="pprice" name="pprice">
+				<input type="text" class="form-control" id="pprice" name="pprice">
 			</div>	
 			<div class="panel panel-default" style="margin-top:20px;">
 			  <div class="panel-heading">
 			    <h3 class="panel-title" align="center">상품소개</h3>
 			  </div>
 			  <div class="panel-body" style="height:250px;">
-				<textarea rows="10" cols="70" type="text" id="pinfo" name="pinfo"></textarea>
+				<textarea rows="10"  type="text" id="pinfo" name="pinfo" style="width:100%;"></textarea>
 			  </div>
 			</div>
 			<div>
@@ -59,5 +63,17 @@ $(document).ready(function(){
 		</form>
 	</div>
 </div>
+
+			<script>
+				$("#pimage").change(function(){
+					if(this.files && this.files[0]){
+						var reader = new FileReader;
+						reader.onload = function(data){
+							$(".select_img img").attr("src", data.target.result).width(300);
+						}
+						reader.readAsDataURL(this.files[0]);
+					}
+				});
+			</script>
 </body>
 </html>

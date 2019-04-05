@@ -29,11 +29,16 @@
    		<property name="mapperLocations" value="classpath:com/company/spring/**/*.xml"></property>
     </bean>
     
+    <!-- 업로드 패스 설정 -->
+    <bean class="java.lang.String" id="uploadPath">
+		<constructor-arg value="C:\Users\jce88\Downloads\Java\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Spring\resources"/>
+	</bean>
+	
      <!-- mybatis   -->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
     </bean>
 	
-	 	
+	<context:component-scan base-package="com" />	
 </beans>
 

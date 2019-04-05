@@ -4,8 +4,8 @@
 	<!-- 상품 업로드 -->
 	<insert id="upload">
 		INSERT INTO product_tb
-			(pidx, pname, pprice, pinfo, pimage)
-		VALUES (#{pidx}, #{pname}, #{pprice}, #{pinfo}, #{pimage})	
+			(pidx, pname, pprice, pinfo, pimage, pthumbimg)
+		VALUES (#{pidx}, #{pname}, #{pprice}, #{pinfo}, #{pimage}, #{pthumbimg})	
 	</insert>
 	<!-- 상품 수정 페이지 -->
 	<select id="modify" resultType="com.company.spring.product.ProductVO">

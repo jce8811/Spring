@@ -20,29 +20,34 @@
 .container {
 	margin-top : 150px;
 }
+div.pthumbimg img { 
+width:200px; height:200px; 
+}
+div.pinfo { 
+padding:10px 0; text-align:center; 
+}
+div.pinfo a { 
+color:#000; 
+}
 </style>
 <body>
 <div class="container">
 	<h3>상품 목록</h3>
-	<table class="table">
-	  <thead>	
-		<tr>
-			<th style="width:20%">상품이미지</th>
-			<th>상품명</th>
-			<th>상품가격</th>
-		</tr>
-	  </thead>
+	<ul>
 	  	<c:forEach var="row" items="${list}">
-	  		<tr>
-	  			<td><a href="${path}/product/info.do/${row.pidx}">
-	  					<img src="${path}/resources/productImage/${row.pimage}" width="120px" height="110px">
-	  				</a>
-	  			</td>
-	  			<td><a href="${path}/product/info.do/${row.pidx}">${row.pname}</a></td>
-	  			<td><fmt:formatNumber value="${row.pprice}" pattern="###,###,###"/> 원</td>
-	  		</tr>
+	  			<li style="list-style: none; display:inline-block; margin:10px;">
+	  				<hr>
+		  			<div class="pthumbimg">
+		  			<a href="${path}/product/info.do/${row.pidx}"><img src="${path}/${row.pthumbimg}"/></a>
+		  			</div>
+		  			<hr>
+		  			<div class="pinfo">
+		  			<a href="${path}/product/info.do/${row.pidx}">${row.pname}</a>
+		  			<h4><fmt:formatNumber value="${row.pprice}" pattern="###,###,###"/> 원</h4>
+		  			</div>
+	  			</li>
 	  	</c:forEach>
-	</table>
+	 </ul>	
 	<a class="btn btn-default" id="pWrite" style="float:right;">상품등록</a>
 </div>
 </body>
