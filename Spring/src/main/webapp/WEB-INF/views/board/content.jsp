@@ -41,64 +41,46 @@
 	<div style="width:650px; text-align:center;">
 		<textarea rows="5" cols="130" id="rcontent" placeholder="댓글을 작성해 주세요."></textarea>
 		<c:if test="${sessionScope.mid != null }">
-		<button type="button" id="btnReply">댓글 작성</button>
+		<button type="button" id="writeReply">댓글 작성</button>
 		</c:if>
 	</div>
 	<!-- 댓글 목록 출력 -->
-	<table class="table" id="listReply"></table>>
+	<table class="table" id="listReply"></table>
 </div>
 <script>
-$(document).ready(function(){
+$("#writeReply").click(function(){
 	listReply();
-	
-	$("#btnReply").click(function(){
-		var rcontent = $("#rcontent").val();
-		var bidx="${vo.bidx}"
-		var param="rcontent="+rcontent+"&bidx="+bidx;
-		$.ajax({
-			type: "post",
-			url : "${path}/reply/insert.do",
-			data : param,
-			success : function(){
-				alert("댓글이 등록되었습니다.");
-				listReply();
-			}
-		});
-	});
-
-	function listReply(){
-		$.ajax({
-			 type: "get",
-			 url : "${path}/reply/list.do?bidx=${vo.bidx}",
-			 success: function(result){
-				 var output = "<table>";
-				 for(var i in result){
-					 output += "<tr>";
-					 output += "<td>"+result[i].mid;
-					 output += "("+changeDate(result[i].rdate)+")"
-					 output += "</td>";
-					 output += "<td>"+result[i].rcontent
-					 output += "</td>"
-					 output += "</tr>";
-				 }
-				 output += "</table>";
-				 $("#listReply").html(output);
-			 }		 
-		});
-	}
-	
-	function changeDate(date){
-		date = new Date(parseInt(date));
-		year = date.getFullYear();
-		month = date.getMonth();
-		day = date.getDate();
-		hour = date.getHours();
-		minute = date.getMinutes();
-		second = date.getSeconds();
-		replyDate = year+"-"+month+"-"+day+"-"+hour+":"+minute+":"+second;
-		return replyDate;
-}
+	reply();
 });
+function reply(){
+	var rcontent=$("#rcontent").val();
+	var bidx = "${vo.bidx}"
+	$.ajax({
+		type : "post",
+		url : "${path}/reply/insert.do",
+		headers: {
+			"Content-Type" : "application/json"
+		},
+		dateType: "text",
+		data: JSON.stringify({
+			bidx : bidx,
+			rcontent : rcontent
+		}),
+		success:function(){
+			alert("댓글이 등록되었습니다.");
+			listReply();
+		}
+	});
+}
+function listReply(){
+	$.ajax({
+		type: "get",
+		url : "${path}/reply/list.do?bidx=${vo.bidx}",
+		success:function(result){
+			$("#listReply").html(result);
+		}
+	});
+}
 </script>
 </body>
 </html>

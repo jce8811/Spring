@@ -32,31 +32,37 @@
  	SET mpw=#{mpw} 
  	WHERE mid=#{mid}
  	</update>
+ 	<!-- 회원정보 보기 -->
  	<select id="info" resultType="com.company.spring.member.MemberVO">
  	SELECT *
  	FROM member_tb
  	WHERE mid = #{mid}
  	</select>
+ 	<!-- 회원정보 변경 -->
  	<update id="updateInfo">
  	UPDATE member_tb
  	SET mpw=#{mpw}, mname=#{mname}, mmail=#{mmail}
- 	WHERE midx = #{midx}
+ 	WHERE mid = #{mid}
  	</update>
- 	<delete id="dropMember">
- 	DELETE 
- 	FROM member_tb
- 	WHERE mid=#{mid}
- 	</delete>
+ 	<!-- 비밀번호 확인 -->
  	<select id="checkPw" resultType="int">
  	SELECT count(*)
  	FROM member_tb
  	WHERE mid=#{mid} AND mpw=#{mpw}
  	</select>
+ 	<!-- 회원탈퇴 -->
+ 	<delete id="dropMember">
+ 	DELETE 
+ 	FROM member_tb
+ 	WHERE mid=#{mid}
+ 	</delete>
+ 	<!-- 아이디 확인 -->
  	<select id="checkId" resultType="com.company.spring.member.MemberVO">
  	SELECT mid
  	FROM member_tb
  	WHERE mid=#{mid}
  	</select>
+ 	<!-- 이메일 중복 확인 -->
  	<select id="selectByEmail" resultType="com.company.spring.member.MemberVO">
  	SELECT mmail,mname
  	FROM member_tb

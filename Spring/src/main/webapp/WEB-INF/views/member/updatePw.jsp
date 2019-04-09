@@ -36,7 +36,6 @@ function changeValue(){
 <div class="container">
 	<div class="col-sm-4"></div>
 	<div class="col-sm-6" style="margin-top:30px;">
-	<input type="hidden" id="mid" name="mid" value="${requestScope.mid}"/>
 	<h3>비밀번호 변경</h3>
 		<form name="member" class="form-horizontal" method="post"  action="${path}/member/updatePwResult.do"  onsubmit="return changeValue()">
 			<div class="form-group">
@@ -49,9 +48,10 @@ function changeValue(){
 					<input type="password" class="form-control" id="mpwcheck" name="mpwcheck" placeholder="비밀번호를 한번 더 입력해주세요"/>
 				</div>
 			</div>
+			<input type="hidden" id="mid" name="mid" value="${requestScope.mid}"/>
 			<div class="col-sm-6">
-				<button type="submit" class="btn btn-default" style="float:right;">변경하기</button>															
 				<button type="button" class="btn btn-default" style="float:right;margin-right:10px;">취소</button>
+				<button type="submit" class="btn btn-default" style="float:right;">변경하기</button>					
 			</div>	
 		</form>
 	</div>

@@ -25,6 +25,7 @@ $(document).ready(function(){
 			alert("상품정보를 입력하세요.");
 			pinfo.focus();
 		}
+		alert("업로드 완료!")
 		document.form1.action = "${path}/admin/productUpload.do";
 		document.form1.submit();
 	});
@@ -69,7 +70,7 @@ $(document).ready(function(){
 					if(this.files && this.files[0]){
 						var reader = new FileReader;
 						reader.onload = function(data){
-							$(".select_img img").attr("src", data.target.result).width(300);
+							$(".select_img img").attr("src", data.target.result);
 						}
 						reader.readAsDataURL(this.files[0]);
 					}

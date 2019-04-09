@@ -17,14 +17,17 @@
 </head>
 <body>
 <div class="container">
-	<table style="width:700px">
 		<c:forEach var="row" items="${list}">
-			<tr>
-				<td>${row.mid}(<fmt:formatDate value="${row.rdate}" pattern="yyyy-MM-dd HH:mm:ss"/>)</td>
-				<td>${row.rcontent}</td>
-			</tr>
+		<div style="margin-bottom:20px;">
+			<span style="font-size:22px;">${row.mid}</span>
+			<span style="font-size:13px;">(<fmt:formatDate value="${row.rdate}" pattern="yyyy-MM-dd HH:mm:ss"/>)</span>
+		</div>
+		<div>${row.rcontent}</div>
+			<c:if test="${sessionScope.mid == row.rwriter}">
+				<button type="button" id="modify">수정</button>
+			</c:if>
+		<hr>	
 		</c:forEach>
-	</table>
 </div>
 </body>
 </html>

@@ -33,13 +33,13 @@
 						<label for="mid" class="col-sm-3 control-label">아이디</label>
 						<div class="col-sm-6">
 							<form:input type="text" class="form-control" path="mid"/>
-							<form:errors path="mid"/>
+							<form:errors style="color:red" path="mid"/>
 						</div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-warning" id="checkId">중복확인</button>
 						</div>
 						<p class="result" align="center">
-						<span class="msg">아이디를 확인해 주세요.</span>
+						<span class="msg" style="color:red">아이디를 확인해 주세요.</span>
 						</p>
 				</div>
 				
@@ -47,7 +47,7 @@
 						<label for="mpw" class="col-sm-3 control-label">비밀번호</label>
 						<div class="col-sm-6">
 							<form:input type="password" class="form-control" path="mpw"/>
-							<form:errors path="mpw"/>
+							<form:errors style="color:red" path="mpw"/>
 						</div>
 				</div>
 				
@@ -55,7 +55,7 @@
 						<label for="mpwcheck" class="col-sm-3 control-label">비밀번호 확인</label>
 						<div class="col-sm-6">
 							<form:input type="password" class="form-control"  path="checkPw"/>
-							<form:errors path="checkPw"/>
+							<form:errors style="color:blue" path="checkPw"/>
 						</div>	
 				</div>
 				
@@ -63,7 +63,7 @@
 						<label for="mname" class="col-sm-3 control-label">이름</label>
 						<div class="col-sm-6">
 							<form:input type="text" class="form-control"  path="mname"/>
-							<form:errors path="mname"/>
+							<form:errors style="color:red" path="mname"/>
 						</div>
 				</div>
 				
@@ -71,12 +71,12 @@
 						<label for="mmail" class="col-sm-3 control-label">이메일</label>
 						<div class="col-sm-6">
 						<form:input type="email" class="form-control"  path="mmail"/>
-						<form:errors path="mmail"/>		
+						<form:errors style="color:red" path="mmail"/>		
 						</div>
 				</div>
 						
 				<button type="reset" class="btn btn-default" style="float:right;">취소</button>
-				<button type="submit" class="btn btn-default" id="submit" disabled="disabled" style="float:right;margin-right:10px;">회원등록</button>						
+				<button type="submit" class="btn btn-default" id="submit" disabled="disabled" style="float:right; margin-right:10px;">회원등록</button>						
 			</form:form>
 		</div>		
 		</div>

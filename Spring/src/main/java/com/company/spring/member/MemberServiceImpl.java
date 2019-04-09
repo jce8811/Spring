@@ -12,10 +12,15 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberDAO dao;
 	
-//	@Override
-//	public void insertMember(MemberVO vo) throws Exception{
-//		dao.insertMember(vo);
-//	}
+	@Override
+	public void insertMember(Register reg) throws Exception {
+		MemberVO mmail = dao.selectByEmail(reg.getMmail());
+		if(mmail != null) {
+			throw new ExistingEmailException(reg.getMmail()+" is duplicate email. ");
+		}
+		dao.insertMember(reg);
+	}
+
 
 	@Override
 	public boolean loginCheck(MemberVO vo, HttpSession session) throws Exception{
@@ -73,15 +78,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO checkId(String mid) throws Exception {
 		return dao.checkId(mid);
-	}
-
-	@Override
-	public void register(Register reg) throws Exception {
-		MemberVO mmail = dao.selectByEmail(reg.getMmail());
-		if(mmail != null) {
-			throw new ExistingEmailException(reg.getMmail()+" is duplicate email. ");
-		}
-		dao.insertMember(reg);
 	}
 
 

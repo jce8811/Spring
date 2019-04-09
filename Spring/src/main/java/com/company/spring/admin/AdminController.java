@@ -3,6 +3,7 @@ package com.company.spring.admin;
 import java.io.File;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,21 @@ public class AdminController {
 	}
 	// 상품 수정하기
 	@RequestMapping(value="/admin/productModify.do", method=RequestMethod.POST)
-	public String productModify(ProductVO vo) throws Exception{
+	public String productModify(ProductVO vo, MultipartFile file, HttpServletRequest request) throws Exception{
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			new File(uploadPath + request.getParameter("pimage")).delete();
+			new File(uploadPath + request.getParameter("pthumbimg")).delete();
+			
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			
+			vo.setPimage(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			vo.setPthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		}else {
+			vo.setPimage(request.getParameter("pimage"));
+			vo.setPthumbimg(request.getParameter("pthumbimg"));
+		}
 		service.productModify(vo);
 		return "redirect:/product/list.do";
 	}

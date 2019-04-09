@@ -10,6 +10,19 @@ public class MemberVO {
 	private String mmail;
 	private int mgrade;
 	private Date menter;
+	private String checkPw;
+	
+	public String getCheckPw() {
+		return checkPw;
+	}
+
+	public void setCheckPw(String checkPw) {
+		this.checkPw = checkPw;
+	}
+
+	public boolean PwEqualCheckPw() {
+		return mpw.equals(checkPw);
+	}
 	
 	public String getMid() {
 		return mid;
@@ -47,11 +60,12 @@ public class MemberVO {
 	public void setMenter(Date menter) {
 		this.menter = menter;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "MemberVO [mid=" + mid + ", mpw=" + mpw + ", mname=" + mname + ", mmail=" + mmail + ", mgrade=" + mgrade
-				+ ", menter=" + menter + "]";
+				+ ", menter=" + menter + ", checkPw=" + checkPw + "]";
 	}
+	
 	
 }

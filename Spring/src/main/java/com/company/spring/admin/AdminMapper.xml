@@ -16,7 +16,7 @@
 	<!-- 상품 수정 -->
 	<update id="productModify">
 		UPDATE product_tb
-		SET pname=#{pname}, pprice=#{pprice}, pinfo=#{pinfo}, pimage=#{pimage}
+		SET pname=#{pname}, pprice=#{pprice}, pinfo=#{pinfo}, pimage=#{pimage}, pthumbimg=#{pthumbimg}
 		WHERE pidx = #{pidx}
 	</update>
 	<!-- 상품 삭제 -->

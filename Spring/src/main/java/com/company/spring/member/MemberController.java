@@ -49,7 +49,7 @@ public class MemberController {
 			ModelAndView mv = new ModelAndView("member/join");
 			return mv;
 		} try {
-			memberservice.register(reg);
+			memberservice.insertMember(reg);
 		} catch (ExistingEmailException e) {
 			errors.rejectValue("mmail", "duplicate", "이미 가입된 이메일입니다.");
 			ModelAndView mv = new ModelAndView("member/join");
@@ -84,11 +84,6 @@ public class MemberController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/memberInsert.do")
-//	public String memberInsert(MemberVO vo) throws Exception{
-//			memberservice.insertMember(vo);
-//			return "member/login";
-//		}
 	@RequestMapping(value="/findId.do")
 	public String findId() throws Exception{
 		return "member/findId";
@@ -158,6 +153,7 @@ public class MemberController {
 			return "member/drop";
 		}
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method=RequestMethod.POST)
 	public int checkId(@RequestParam("mid") String mid) throws Exception{

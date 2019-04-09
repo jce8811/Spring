@@ -19,5 +19,17 @@ public class ReplyDAO {
 	public List<ReplyVO> list(int bidx) {
 		return sqlsession.selectList("reply.list", bidx);
 	}
+	
+	public ReplyVO detail(int ridx) {
+		return sqlsession.selectOne("reply.detail", ridx);
+	}
+	
+	public void modify(ReplyVO vo) {
+		sqlsession.update("reply.modify", vo);
+	}
+	
+	public void delete(int ridx) {
+		sqlsession.delete("reply.delete", ridx);
+	}
 
 }

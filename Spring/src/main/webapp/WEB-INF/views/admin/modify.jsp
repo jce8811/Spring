@@ -25,6 +25,7 @@ $(document).ready(function(){
 			alert("상품정보를 입력하세요.");
 			pinfo.focus();
 		}
+		alert("수정이 완료되었습니다.")
 		document.form1.action = "${path}/admin/productModify.do";
 		document.form1.submit();
 	});
@@ -33,11 +34,14 @@ $(document).ready(function(){
 </script>
 <body>
 <div class="container" style="margin-top:200px;">
+	<form name="form1" id="form1" method="post" enctype="multipart/form-data">
 	<div class="col-sm-6">
-	<img src="" width="400px" height="300px">
+		<input type="file" id="pimage" name="file" />
+		 <input type="hidden" name="pimage" value="${vo.pimage}" />
+  		 <input type="hidden" name="pthumbimg" value="${vo.pthumbimg}" /> 
+		<div class="select_img"><img src="${path}/${vo.pthumbimg}"/></div>
 	</div>
 		<div class="col-sm-6">
-		<form name="form1" id="form1" method="post">
 			<div>	
 				<label for="pname">상품명: </label>
 				<input type="text" id="pname" name="pname" value="${vo.pname}">
@@ -60,5 +64,16 @@ $(document).ready(function(){
 		</form>
 	</div>
 </div>
+<script>
+				$("#pimage").change(function(){
+					if(this.files && this.files[0]){
+						var reader = new FileReader;
+						reader.onload = function(data){
+							$(".select_img img").attr("src", data.target.result);
+						}
+						reader.readAsDataURL(this.files[0]);
+					}
+				});
+			</script>
 </body>
 </html>
