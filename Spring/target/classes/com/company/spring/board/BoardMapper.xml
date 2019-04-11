@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-	<select id="listSearch"  parameterType="com.company.spring.board.SearchCriteria" resultType="com.company.spring.board.BoardVO">
-		SELECT R1.* FROM (
-			SELECT bidx, btitle, bcontent, bdate, bcnt, m.mid, bvalue, (SELECT count(*) FROM reply_tb WHERE bidx=b.bidx) AS bcntNum
-			FROM board_tb b, member_tb m
-			where b.bwriter = m.mid
-			<include refid="search"></include>
-       		ORDER BY bidx desc
-       	 	)R1 
-            LIMIT #{rowStart},10
+	<select id="list" resultType="com.company.spring.board.BoardVO" parameterType="com.company.spring.utils.SearchCriteria">
+		select @rownum := @rownum + 1, bidx, bwriter, btitle, bcontent, bdate, bcnt, bvalue
+		from( select @rownum := 0, bidx, bwriter, btitle, bcontent, bdate, bcnt, bvalue, m.mid, 
+			row_number() over(order by bidx desc) as rNum
+		    from board_tb b, member_tb m
+		    WHERE b.bwriter = m.mid
+		    <include refid="search"></include>
+		    ) pt
+		 where rNum between #{rowStart} and #{rowEnd}
+		 order by bidx desc;
 	</select>
 	
-	<select id="countSearch" resultType="int">
+	 
+	<select id="listCount" resultType="int">
 		SELECT count(bidx)
 		FROM board_tb
 		where bidx
 	</select>
 	
+	<select id="countSearch" resultType="int">
+		SELECT count(bidx)
+		FROM board_tb
+		WHERE bidx > 0
+		<include refid="search"></include>
+	</select>
+	
+	 <sql id="search">
+		 <if test="searchType != null">
+		  <if test="searchType == 'btitle'.toString()"> AND btitle like CONCAT("%" ,#{keyword} ,"%")</if>
+		  <if test="searchType == 'bcontent'.toString()"> AND bcontent like CONCAT("%" ,#{keyword} ,"%")</if>
+		  <if test="searchType == 'bwriter'.toString()"> AND bwriter like CONCAT("%" ,#{keyword} ,"%")</if>
+		 </if>
+	 </sql>
+	 
 	<insert id="insert">
 		INSERT INTO board_tb
 			(btitle, bwriter, bcontent, bdate, bcnt, bvalue)
@@ -55,12 +72,4 @@
 		WHERE bidx = #{bidx}
 	</update>
 	
-	
-	 <sql id="search">
-		 <if test="searchType != null">
-		  <if test="searchType == 't'.toString()">AND btitle like CONCAT("%" ,#{keyword} ,"%")</if>
-		  <if test="searchType == 'c'.toString()">AND bcontent like CONCAT("%" ,#{keyword} ,"%")</if>
-		  <if test="searchType == 'w'.toString()">AND bwriter = m.mid AND (m.mid like CONCAT("%" ,#{keyword} ,"%"))</if>
-		 </if>
-	 </sql>
 </mapper>

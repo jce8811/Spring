@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.company.spring.member.MemberService;
@@ -21,7 +22,7 @@ import com.company.spring.member.MemberVO;
 public class MemberController {
 	
 	@Autowired
-	MemberService memberservice;
+	MemberService service;
 	
 	@RequestMapping(value="/step.do")
 	public String step() throws Exception{
@@ -43,13 +44,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/joinResult.do", method=RequestMethod.POST)
-	public ModelAndView joinResult(Register reg, Errors errors) throws Exception{
+	public ModelAndView joinResult(Register reg, Errors errors, MultipartFile file) throws Exception{
 		new RegisterValidator().validate(reg, errors);
 		if(errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("member/join");
 			return mv;
 		} try {
-			memberservice.insertMember(reg);
+			service.insertMember(reg);
 		} catch (ExistingEmailException e) {
 			errors.rejectValue("mmail", "duplicate", "이미 가입된 이메일입니다.");
 			ModelAndView mv = new ModelAndView("member/join");
@@ -58,6 +59,7 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView("member/joinResult");
 		return mv;
 	}
+	
 	@RequestMapping(value="/login.do")
 	public String login() throws Exception{
 		return "member/login";
@@ -65,7 +67,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/loginCheck.do")
 	public ModelAndView loginCheck(MemberVO vo, HttpSession session) throws Exception{
-		boolean result = memberservice.loginCheck(vo,session);
+		boolean result = service.loginCheck(vo,session);
 		ModelAndView mv = new ModelAndView();
 		if(result == true) {
 			mv.setViewName("home");
@@ -78,7 +80,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="/logout.do")
 	public ModelAndView logout(HttpSession session) throws Exception{
-		memberservice.logout(session);
+		service.logout(session);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("member/login");
 		return mv;
@@ -91,7 +93,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/findIdResult.do", method=RequestMethod.POST)
 	public String findIdResult(@RequestParam("mname") String mname, @RequestParam("mmail") String mmail, Model model) throws Exception{
-		model.addAttribute("mid", memberservice.findId(mname, mmail));
+		model.addAttribute("mid", service.findId(mname, mmail));
 		return "member/findIdResult";
 	}
 	
@@ -103,7 +105,7 @@ public class MemberController {
 	@RequestMapping(value="/findPwResult.do", method=RequestMethod.POST)
 	public ModelAndView findPwResult(@RequestParam("mid") String mid, @RequestParam("mname") String mname, 
 									@RequestParam("mmail") String mmail, HttpServletRequest request) throws Exception{
-		boolean result = memberservice.findPw(mid,mname,mmail);
+		boolean result = service.findPw(mid,mname,mmail);
 		ModelAndView mv = new ModelAndView();
 		if(result == true) {
 			request.setAttribute("mid", mid);
@@ -118,7 +120,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/updatePwResult.do", method=RequestMethod.POST)
 	public String updatePwResult(@RequestParam("mid") String mid, @RequestParam("mpw") String mpw, MemberVO vo) throws Exception{
-		memberservice.updatePwResult(vo);
+		service.updatePwResult(vo);
 		vo.setMid(mid);
 		vo.setMpw(mpw);
 		return "redirect:login.do";
@@ -126,14 +128,14 @@ public class MemberController {
 	
 	@RequestMapping(value="/info.do", method=RequestMethod.GET)
 	public String info(String mid, Model model) throws Exception{
-		model.addAttribute("vo", memberservice.info(mid));
+		model.addAttribute("vo", service.info(mid));
 		return "member/info";
 	}
 	
 	@RequestMapping(value="/infoUpdate.do", method=RequestMethod.POST)
-	public String updateInfo(MemberVO vo) throws Exception{
-		memberservice.updateInfo(vo);
-		return "redirect:info.do?mid="+ vo.getMid();
+	public String updateInfo(MemberVO vo, MultipartFile file, HttpServletRequest request) throws Exception{
+		service.updateInfo(vo);
+		return "redirect:info.do?mid="+vo.getMid();
 	}
 	
 	@RequestMapping(value="/drop.do", method=RequestMethod.GET)
@@ -143,9 +145,9 @@ public class MemberController {
 	@RequestMapping(value="/dropMember.do", method=RequestMethod.POST)
 	public String dropMember(@RequestParam("mpw") String mpw, Model model, HttpSession session) throws Exception{
 		String mid = (String) session.getAttribute("mid");
-		boolean result = memberservice.checkPw(mid, mpw);
+		boolean result = service.checkPw(mid, mpw);
 		if(result) {
-			memberservice.dropMember(mid);
+			service.dropMember(mid);
 			return "home";
 		} else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
@@ -157,7 +159,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method=RequestMethod.POST)
 	public int checkId(@RequestParam("mid") String mid) throws Exception{
-		MemberVO checkId = memberservice.checkId(mid);
+		MemberVO checkId = service.checkId(mid);
 		int result = 0;
 		if(checkId != null) {
 			result = 1;

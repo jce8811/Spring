@@ -1,4 +1,4 @@
-package com.company.spring.board;
+package com.company.spring.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -71,6 +71,7 @@ public class PageMaker {
 		prev = startPage == 1? false : true;
 		next = endPage * cri.getPerPageNum() >= totalCount? false : true;
 	}
+	
 	
 	public String makeQuery(int page){
 	 UriComponents uriComponents =

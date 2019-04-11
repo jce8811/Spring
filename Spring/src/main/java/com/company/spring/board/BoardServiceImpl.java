@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.company.spring.utils.Criteria;
+import com.company.spring.utils.SearchCriteria;
+
 @Service
 public class BoardServiceImpl implements BoardService{
 	
@@ -13,8 +16,8 @@ public class BoardServiceImpl implements BoardService{
 	BoardDAO dao;
 
 	@Override
-	public List<BoardVO> listSearch(SearchCriteria scri) throws Exception {
-		return dao.listSearch(scri);
+	public List<BoardVO> list(SearchCriteria scri) throws Exception {
+		return dao.list(scri);
 	}
 	
 	@Override
@@ -60,6 +63,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int countSearch(SearchCriteria scri) throws Exception {
 		return dao.countSearch(scri);
+	}
+
+	@Override
+	public int listCount() throws Exception {
+		return dao.listCount();
 	}
 
 

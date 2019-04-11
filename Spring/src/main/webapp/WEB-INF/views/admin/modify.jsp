@@ -74,6 +74,6 @@ $(document).ready(function(){
 						reader.readAsDataURL(this.files[0]);
 					}
 				});
-			</script>
+</script>
 </body>
 </html>

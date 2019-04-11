@@ -21,8 +21,8 @@ a:hover {
 color: black; text-decoration: none;
 }
 </style>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
 <c:import url="/resources/nav/header.jsp"/>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <body>
 <div class="container">
 		<h3>게시판</h3>
@@ -42,12 +42,12 @@ color: black; text-decoration: none;
 						<c:when test="${row.bvalue == 'y'}">
 							<tr>
 								<td>${row.bidx}</td>
-								<td><a href="${path}/board/content.do?bidx=${row.bidx}">${row.btitle}
+								<td><a href="${path}/board/content.do?bidx=${row.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">${row.btitle}
 									<c:if test="${row.bcntNum >0}">
 									<span style="color:red;">[${row.bcntNum}]</span>
 									</c:if></a>
 								</td>
-								<td>${row.mid}</td>
+								<td>${row.bwriter}</td>
 								<td><fmt:formatDate value="${row.bdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								<td>${row.bcnt}</td>
 							</tr>
@@ -56,7 +56,7 @@ color: black; text-decoration: none;
 						<tr>
 							<td>${row.bidx}</td>
 							<td>----삭제된 게시물입니다.----</td>
-							<td>${row.mid}</td>
+							<td>${row.bwriter}</td>
 							<td><fmt:formatDate value="${row.bdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							<td>${row.bcnt}</td>
 						</tr>
@@ -69,24 +69,22 @@ color: black; text-decoration: none;
 		<c:if test="${sessionScope.mid != null}">	
 			<a class="btn btn-default" id="bWrite">글작성</a>
 		</c:if>
-		
 		<div class="search" style="float:right;">
-		 <select name="searchType">
-		  <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>모두보기</option>
-		  <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
-		  <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-		  <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+		 <select id="searchType" name="searchType">
+		  <option value="btitle"<c:out value="${scri.searchType == 'btitle' ? 'selected' : ''}"/>>제목</option>
+		  <option value="bcontent"<c:out value="${scri.searchType == 'bcontent' ? 'selected' : ''}"/>>내용</option>
+		  <option value="bwriter"<c:out value="${scri.searchType == 'bwriter' ? 'selected' : ''}"/>>작성자</option>
 		 </select>
 		 
-		 <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+		 <input type="text" name="keyword" id="keyword" value="${scri.keyword}"/>
 		 <button class="btn btn-default" id="searchBtn">검색</button>
 		
 		<script>
 				 $(function(){
 				  $('#searchBtn').click(function() {
-				   self.location = "${path}/board/listSearch.do" + '${pagemaker.makeQuery(1)}'
+				   self.location = "list.do" + '${pagemaker.makeQuery(1)}'
 				     + "&searchType=" + $("select option:selected").val()
-				     + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+				     + "&keyword=" + encodeURIComponent($('#keyword').val());
 				    });
 				 });   
 		</script>
@@ -94,15 +92,15 @@ color: black; text-decoration: none;
 		<div class="text-center">
 			 <ul class="pagination">
 			  <c:if test="${pagemaker.prev}">
-			   <li><a href="listSearch.do${pagemaker.makeSearch(pagemaker.startPage - 1)}">이전</a></li>
+			   <li><a href="list.do${pagemaker.makeSearch(pagemaker.startPage - 1)}">이전</a></li>
 			  </c:if> 
 			  
 			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="bidx">
-			   <li><a href="listSearch.do${pagemaker.makeSearch(bidx)}">${bidx}</a></li>
+			   <li><a href="list.do${pagemaker.makeSearch(bidx)}">${bidx}</a></li>
 			  </c:forEach>
 			    
 			  <c:if test="${pagemaker.next && pagemaker.endPage > 0}">
-			   <li><a href="listSearch.do${pagemaker.makeSearch(pagemaker.endPage + 1)}">다음</a></li>
+			   <li><a href="list.do${pagemaker.makeSearch(pagemaker.endPage + 1)}">다음</a></li>
 			  </c:if> 
 			 </ul>
 		</div>

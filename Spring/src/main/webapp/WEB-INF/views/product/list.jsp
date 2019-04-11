@@ -49,6 +49,21 @@ color:#000;
 	  	</c:forEach>
 	 </ul>	
 	<a class="btn btn-default" id="pWrite" style="float:right;">상품등록</a>
+	<div class="text-center">
+			 <ul class="pagination">
+			  <c:if test="${pagemaker.prev}">
+			   <li><a href="list.do${pagemaker.makeQuery(pagemaker.startPage - 1)}">이전</a></li>
+			  </c:if> 
+			  
+			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="pidx">
+			   <li><a href="list.do${pagemaker.makeQuery(pidx)}">${pidx}</a></li>
+			  </c:forEach>
+			    
+			  <c:if test="${pagemaker.next && pagemaker.endPage > 0}">
+			   <li><a href="list.do${pagemaker.makeQuery(pagemaker.endPage + 1)}">다음</a></li>
+			  </c:if> 
+			 </ul>
+		</div>
 </div>
 </body>
 </html>

@@ -5,8 +5,8 @@
  	<!-- 회원가입 -->
  	<insert id="insertMember">
  	INSERT INTO member_tb
- 	(mid, mpw, mname, mmail, mgrade, menter)
- 	VALUES (#{mid},#{mpw},#{mname},#{mmail}, '0', now())	
+ 	(mid, mpw, mname, mmail, mgrade, menter, mimage, mthumbimg, mintro)
+ 	VALUES (#{mid},#{mpw},#{mname},#{mmail}, '0', now(), #{mimage}, #{mthumbimg}, #{mintro})	
  	</insert>
  	<!-- 로그인 -->
  	<select id="checkLogin" resultType="String">
@@ -41,7 +41,7 @@
  	<!-- 회원정보 변경 -->
  	<update id="updateInfo">
  	UPDATE member_tb
- 	SET mpw=#{mpw}, mname=#{mname}, mmail=#{mmail}
+ 	SET mpw=#{mpw}, mname=#{mname}, mmail=#{mmail}, mimage=#{mimage}, mthumbimg=#{mthumbimg}, mintro=#{mintro}
  	WHERE mid = #{mid}
  	</update>
  	<!-- 비밀번호 확인 -->

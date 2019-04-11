@@ -12,6 +12,8 @@
 .container{
 	margin-top:50px;
 }
+.select_img img { 
+}
 </style>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <c:import url="/resources/nav/header.jsp"/>
@@ -73,8 +75,7 @@
 						<form:input type="email" class="form-control"  path="mmail"/>
 						<form:errors style="color:red" path="mmail"/>		
 						</div>
-				</div>
-						
+				</div>	
 				<button type="reset" class="btn btn-default" style="float:right;">취소</button>
 				<button type="submit" class="btn btn-default" id="submit" disabled="disabled" style="float:right; margin-right:10px;">회원등록</button>						
 			</form:form>
@@ -82,18 +83,19 @@
 		</div>
 <script> 
 $("#checkId").click(function(){
- 
+ 	
 	var query = {
-		 		mid : $("#mid").val()
+		 		mid : $( "#mid").val()
 			 };
-	
-	 $.ajax({
+	if(query.mid.length != 0 && query.mid.trim() != ""){ 
+	 
+		$.ajax({
 	  url : "${path}/member/checkId.do",
 	  type : "post",
 	  data : query,
 	  success : function(data) {
 	  
-	   if(data == 1 ) {
+	   if(data == 1) {
 	    $(".result .msg").text("사용 불가");
 	    $(".result .msg").attr("style", "color:#f00");    
 	    $("#submit").attr("disabled","disabled");
@@ -104,6 +106,12 @@ $("#checkId").click(function(){
 	   }
 	  }
 	});  // ajax 끝
+	} else {
+		alert("아이디를 입력해주세요");
+		$(".result .msg").text("사용 불가");
+		$(".result .msg").attr("style", "color:#f00"); 
+		$("#submit").attr("disabled","disabled");
+		}
 });
 </script>
 </body>

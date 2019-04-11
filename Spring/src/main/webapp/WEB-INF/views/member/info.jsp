@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,30 +10,23 @@
 <c:import url="/resources/nav/header.jsp"/>
 </head>
 <script>
- function updateInfo(){
+ function updateInfo(mpw){
 	 if(!document.info.mpw.value){
 			alert("새로운 비밀번호를 입력하세요.");
-			document.member.mpwd.focus();
+			document.info.mpw.focus();
 			return false;
-	 }else if((document.info.mpw.value < "0" || document.info.mpw.value > "9") && (document.info.mpw.value < "A" || document.info.mpw.value > "Z") && (document.info.mpw.value < "a" || document.info.mpw.value > "z")){
-			alert("한글 및 특수문자는 비밀번호로 사용하실 수 없습니다.");
+	 }else if(!/^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/g.test(info.mpw.value)){
+			alert('숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.');
 			return false;
-	 }else if(document.info.mpw.value.length <= 7 || document.info.mpw.value.length >= 20){
-			alert("비밀번호는 8자리 이상 20자리 이하입니다.");
-			return false;		
-	 }else if(document.info.mpw.value!=document.info.mpwCheck.value){
+	}else if(document.info.mpw.value != document.info.mpwCheck.value){
 			alert("새로운 비밀번호와 동일하게 입력하세요.");
-			document.member.mpwdcheck.focus();
+			document.info.mpwCheck.focus();
 			return false;		
 	 }else if(!document.info.mname.value){
 			alert("이름을 입력하세요.");
-			document.member.mname.focus();
+			document.info.mname.focus();
 			return false;
-	 }else if(!document.info.mmail.value){
-			alert("이메일를 입력하세요.");
-			document.member.mmail.focus();
-			return false;	
-		}	
+	 }
  }
 </script>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
@@ -61,7 +55,7 @@
 					</div>
 					<div class="form-group">	
 						<label for="mmail" class="col-sm-3 control-label">이메일</label>	
-							<input type="email" class="form-control" id="mmail" name="mmail" value="${vo.mmail}">
+							<input type="email" class="form-control" id="mmail" name="mmail" value="${vo.mmail}" readonly="readonly">
 					</div>
 					<div class="form-group">	
 						<label for="menter" class="col-sm-3 control-label">가입날짜</label>	

@@ -11,20 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.company.spring.utils.PageMaker;
+import com.company.spring.utils.SearchCriteria;
+
+
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
 	
 	@Autowired
-	BoardService boardservice;
+	BoardService service;
 
 	// 글목록 + 페이징 + 검색
-	@RequestMapping(value = "/listSearch.do", method=RequestMethod.GET)
-	public void listSearch(SearchCriteria scri, Model model, PageMaker pagemaker) throws Exception{
-		List<BoardVO> list = boardservice.listSearch(scri);
+	@RequestMapping(value = "/list.do", method=RequestMethod.GET)
+	public void list(Model model, SearchCriteria scri, PageMaker pagemaker) throws Exception{
+		List<BoardVO> list = service.list(scri);
 		model.addAttribute("list", list);
+		
 		pagemaker.setCri(scri);
-		pagemaker.setTotalCount(boardservice.countSearch(scri));
+		pagemaker.setTotalCount(service.countSearch(scri));
 		model.addAttribute("pagemaker", pagemaker);
 		
 	}
@@ -38,35 +43,36 @@ public class BoardController {
 	public String boardWrite(BoardVO vo, HttpSession session) throws Exception {
 		String bwriter = (String)session.getAttribute("mid");
 		vo.setBwriter(bwriter);
-		
-		boardservice.insert(vo);
-		return "redirect:listSearch.do";
+		service.insert(vo);
+		return "redirect:list.do";
 	}
 	// 글내용 페이지
 	@RequestMapping(value="/content.do", method=RequestMethod.GET)
-	public ModelAndView view(int bidx) throws Exception{
-		boardservice.updateCnt(bidx);
+	public ModelAndView view(int bidx, SearchCriteria scri) throws Exception{
+		service.updateCnt(bidx);
 		ModelAndView mv = new ModelAndView("board/content");
-		mv.addObject("vo", boardservice.read(bidx));
+		mv.addObject("vo", service.read(bidx));
+		mv.addObject("scri", scri);
 		return mv;
 	}
 	// 글 수정 페이지
 	@RequestMapping(value="/updateRead.do", method=RequestMethod.GET)
-	public ModelAndView updateRead(int bidx) throws Exception{
+	public ModelAndView updateRead(int bidx, SearchCriteria scri) throws Exception{
 		ModelAndView mv = new ModelAndView("board/updateContent");
-		mv.addObject("vo", boardservice.updateRead(bidx));
+		mv.addObject("vo", service.updateRead(bidx));
+		mv.addObject("scri", scri);
 		return mv;
 	}
 	// 글 수정 하기
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
-	public String update(BoardVO vo) throws Exception{
-		boardservice.update(vo);
-		return "redirect:content.do?bidx=" + vo.getBidx();
+	public String update(BoardVO vo, SearchCriteria scri) throws Exception{
+		service.update(vo);
+		return "redirect:content.do?bidx=" + vo.getBidx() + scri.getPage() + scri.getPerPageNum() + scri.getSearchType() + scri.getKeyword();
 	}
 	// 글 삭제 하기
 	@RequestMapping(value="/delete.do")
-	public String delete(int bidx) throws Exception{
-		boardservice.delete(bidx);
-		return "redirect:listSearch.do";
+	public String delete(int bidx, SearchCriteria scri) throws Exception{
+		service.delete(bidx);
+		return "redirect:list.do"+ scri.getPage() + scri.getPerPageNum() + scri.getSearchType() + scri.getKeyword();
 	}
 }

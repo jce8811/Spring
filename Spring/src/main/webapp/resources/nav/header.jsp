@@ -33,7 +33,7 @@ a{
     </div>
         <div class="collapse navbar-collapse" id="myNavbar">
            <ul class="nav navbar-nav">
-            <li><a href="${path}/board/listSearch.do">글목록(페이징,검색)</a></li>
+            <li><a href="${path}/board/list.do">글목록(페이징,검색)</a></li>
           </ul>
           <ul class="nav navbar-nav">
             <li><a href="${path}/product/list.do">상품목록</a></li>

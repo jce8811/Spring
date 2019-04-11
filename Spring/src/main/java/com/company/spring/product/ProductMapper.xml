@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
-	<select id="list" resultType="com.company.spring.product.ProductVO">
-		SELECT pidx, pname, pprice, pinfo, pimage, pthumbimg
-		FROM product_tb
-		ORDER BY pidx desc
+	<select id="list" resultType="com.company.spring.product.ProductVO" parameterType="com.company.spring.utils.Criteria">
+		select @rownum := @rownum + 1, pidx, pname, pprice, pinfo, pimage, pthumbimg
+		from( select @rownum := 0, pidx, pname, pprice, pinfo, pimage, pthumbimg,
+			row_number() over(order by pidx desc) as rNum
+		    from product_tb b
+		    ) pt
+		 where rNum between #{rowStart} and #{rowEnd}
+		 order by pidx desc;
 	</select>
 	<select id="info" resultType="com.company.spring.product.ProductVO">
 		SELECT pidx, pname, pprice, pinfo, pimage, pthumbimg
 		FROM product_tb
 		WHERE pidx = #{pidx}
 	</select>
+	<select id="listCount" resultType="int">
+		SELECT count(pidx)
+		FROM product_tb
+		where pidx
+	</select>
 </mapper>
+

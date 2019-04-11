@@ -1,4 +1,4 @@
-package com.company.spring.board;
+package com.company.spring.utils;
 
 public class SearchCriteria extends Criteria{
 	
