@@ -42,7 +42,7 @@ color: black; text-decoration: none;
 						<c:when test="${row.bvalue == 'y'}">
 							<tr>
 								<td>${row.bidx}</td>
-								<td><a href="${path}/board/content.do?bidx=${row.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">${row.btitle}
+								<td><a href="${path}/board/content.do${pagemaker.makeSearch(pagemaker.cri.page)}&bidx=${row.bidx}">${row.btitle}
 									<c:if test="${row.bcntNum >0}">
 									<span style="color:red;">[${row.bcntNum}]</span>
 									</c:if></a>
@@ -95,8 +95,8 @@ color: black; text-decoration: none;
 			   <li><a href="list.do${pagemaker.makeSearch(pagemaker.startPage - 1)}">이전</a></li>
 			  </c:if> 
 			  
-			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="bidx">
-			   <li><a href="list.do${pagemaker.makeSearch(bidx)}">${bidx}</a></li>
+			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="idx">
+			   <li><a href="list.do${pagemaker.makeSearch(idx)}">${idx}</a></li>
 			  </c:forEach>
 			    
 			  <c:if test="${pagemaker.next && pagemaker.endPage > 0}">

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.company.spring.utils.PageMaker;
 import com.company.spring.utils.SearchCriteria;
@@ -65,14 +66,23 @@ public class BoardController {
 	}
 	// 글 수정 하기
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
-	public String update(BoardVO vo, SearchCriteria scri) throws Exception{
+	public String update(BoardVO vo, SearchCriteria scri, RedirectAttributes rt) throws Exception{
 		service.update(vo);
-		return "redirect:content.do?bidx=" + vo.getBidx() + scri.getPage() + scri.getPerPageNum() + scri.getSearchType() + scri.getKeyword();
+		rt.addAttribute("bidx", vo.getBidx());
+		rt.addAttribute("page", scri.getPage());
+		rt.addAttribute("perPageNum", scri.getPerPageNum());
+		rt.addAttribute("searchType", scri.getSearchType());
+		rt.addAttribute("keyword", scri.getKeyword());
+		return "redirect:content.do";
 	}
 	// 글 삭제 하기
 	@RequestMapping(value="/delete.do")
-	public String delete(int bidx, SearchCriteria scri) throws Exception{
+	public String delete(int bidx, SearchCriteria scri, RedirectAttributes rt) throws Exception{
 		service.delete(bidx);
-		return "redirect:list.do"+ scri.getPage() + scri.getPerPageNum() + scri.getSearchType() + scri.getKeyword();
+		rt.addAttribute("page", scri.getPage());
+		rt.addAttribute("perPageNum", scri.getPerPageNum());
+		rt.addAttribute("searchType", scri.getSearchType());
+		rt.addAttribute("keyword", scri.getKeyword());
+		return "redirect:list.do";
 	}
 }

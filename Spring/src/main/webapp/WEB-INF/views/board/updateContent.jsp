@@ -27,6 +27,11 @@
 <body>
 <div class="container">
 	<form name="board" method="post" action="${path}/board/update.do">
+	<input type="hidden" id="page" name="page" value="${scri.page}"/>
+	<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"/>
+	<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"/>
+	<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"/>
+	<input type="hidden" name="bidx" id="bidx" value="${vo.bidx}">
 		<div class="form-group">
 			<label for="btitle" class="control-label">제목</label>
 			<input type="text" name="btitle" id="btitle" size="80" value="${vo.btitle}">
@@ -39,7 +44,6 @@
 			<label for="bcontent" class="control-label">글내용</label>
 			<textarea name="bcontent" id="bcontent" rows="4" cols="80">${vo.bcontent}</textarea>
 		</div>
-		<input type="hidden" name="bidx" id="bidx" value="${vo.bidx}">
 		<button type="reset" class="btn btn-default" style="float:right;">취소</button>
 		<button type="submit" class="btn btn-default" style="float:right;">수정완료</button>
 	</form>

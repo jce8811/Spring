@@ -16,29 +16,30 @@
 <c:import url="/resources/nav/header.jsp"/>
 <body>
 <div class="container">
-	<h3>글 내용</h3>
-	<input type="hidden" id="page" name="page" value="${scri.page}"/>
-	<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"/>
-	<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"/>
-	<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"/>
-	<input type="hidden" name="bidx" id="bidx" value="${vo.bidx}">
-	<div style="border-bottom:1px solid black; border-top:1px solid black;">
-	<h3 style="text-align:center;">${vo.btitle}</h3>
-	</div>
-	<div style="border-bottom:1px solid gray; margin:10px;">
-	<font size="3px">작성자: ${vo.bwriter}</font> 
-	<div style="float:right;">작성날짜: <fmt:formatDate value="${vo.bdate}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp;&nbsp;조회수 :${vo.bcnt}</div>
-	</div>
-	<div style="text-align:center; margin-top:10px;">	
-		<textarea rows="15" cols="160" readonly="readonly">${vo.bcontent}</textarea>
-	</div>	
-	<input type="hidden" name="bidx" value="${vo.bidx}">
-	
-	<c:if test="${sessionScope.mid == vo.bwriter}">
-		<a class="btn btn-default" style="float:right;" href="${path}/board/updateRead.do?bidx=${vo.bidx}">글수정</a>
-		<a class="btn btn-default" style="float:right;" href="${path}/board/delete.do?bidx=${vo.bidx}">글삭제</a>
-	</c:if>
-	<a class="btn btn-default" style="float:right;" href="${path}/board/updateRead.do?page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">글목록</a>
+	<form id="form1" name="form1" method="post">
+		<h3>글 내용</h3>
+		<input type="hidden" id="page" name="page" value="${scri.page}"/>
+		<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"/>
+		<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"/>
+		<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"/>
+		
+		<div style="border-bottom:1px solid black; border-top:1px solid black;">
+			<h3 style="text-align:center;">${vo.btitle}</h3>
+			</div>
+			<div style="border-bottom:1px solid gray; margin:10px;">
+			<font size="3px">작성자: ${vo.bwriter}</font> 
+			<div style="float:right;">작성날짜: <fmt:formatDate value="${vo.bdate}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp;&nbsp;조회수 :${vo.bcnt}</div>
+			</div>
+			<div style="text-align:center; margin-top:10px;">	
+				<textarea rows="15" cols="160" readonly="readonly">${vo.bcontent}</textarea>
+			</div>	
+		<input type="hidden" name="bidx" id="bidx" value="${vo.bidx}">
+		<c:if test="${sessionScope.mid == vo.bwriter}">
+			<a class="btn btn-default" style="float:right;" href="${path}/board/updateRead.do?bidx=${vo.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">글수정</a>
+			<a class="btn btn-default" style="float:right;" href="${path}/board/delete.do?bidx=${vo.bidx}">글삭제</a>
+		</c:if>
+		<a class="btn btn-default" style="float:right;" href="${path}/board/list.do?page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">글목록</a>
+	</form>
 	<hr/>
 	<h3>댓글</h3>
 	<div style="width:650px; text-align:center;">

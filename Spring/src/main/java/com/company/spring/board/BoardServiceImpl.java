@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.company.spring.utils.Criteria;
 import com.company.spring.utils.SearchCriteria;
 
 @Service

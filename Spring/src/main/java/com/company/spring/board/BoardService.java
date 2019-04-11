@@ -2,7 +2,6 @@ package com.company.spring.board;
 
 import java.util.List;
 
-import com.company.spring.utils.Criteria;
 import com.company.spring.utils.SearchCriteria;
 
 
