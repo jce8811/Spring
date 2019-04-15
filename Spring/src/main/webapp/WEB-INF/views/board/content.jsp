@@ -14,6 +14,44 @@
 }
 </style>
 <c:import url="/resources/nav/header.jsp"/>
+<script>
+$(document).ready(function(){
+	listReply();
+	
+	$("#writeReply").click(function(){
+		reply();
+	
+	function reply(){
+		var rcontent = $("#rcontent").val();
+		var bidx = "${vo.bidx}"
+		$.ajax({
+			type : "post",
+			url : "${path}/reply/insert.do",
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			dataType: "text",
+			data: JSON.stringify({
+				bidx : bidx,
+				rcontent : rcontent
+			}),
+			success:function(result){
+				alert("댓글이 등록되었습니다.");
+				listReply();
+				$("#rcontent").val("");
+			}
+		});
+	}
+
+	});	
+	$("#bDelete").click(function(){
+		if(confirm("삭제 하시겠습니까?")){
+			document.form1.action = "${path}/board/delete.do?bidx=${vo.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}";
+			document.form1.submit();
+		}
+	});
+});
+</script>
 <body>
 <div class="container">
 	<form id="form1" name="form1" method="post">
@@ -25,7 +63,7 @@
 		
 		<div style="border-bottom:1px solid black; border-top:1px solid black;">
 			<h3 style="text-align:center;">${vo.btitle}</h3>
-			</div>
+		</div>
 			<div style="border-bottom:1px solid gray; margin:10px;">
 			<font size="3px">작성자: ${vo.bwriter}</font> 
 			<div style="float:right;">작성날짜: <fmt:formatDate value="${vo.bdate}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp;&nbsp;조회수 :${vo.bcnt}</div>
@@ -36,55 +74,27 @@
 		<input type="hidden" name="bidx" id="bidx" value="${vo.bidx}">
 		<c:if test="${sessionScope.mid == vo.bwriter}">
 			<a class="btn btn-default" style="float:right;" href="${path}/board/updateRead.do?bidx=${vo.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">글수정</a>
-			<a class="btn btn-default" style="float:right;" href="${path}/board/delete.do?bidx=${vo.bidx}">글삭제</a>
+			<input type="button" id="bDelete" value="글삭제" class="btn btn-default" style="float:right;">
 		</c:if>
 		<a class="btn btn-default" style="float:right;" href="${path}/board/list.do?page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">글목록</a>
 	</form>
-	<hr/>
-	<h3>댓글</h3>
-	<div style="width:650px; text-align:center;">
-		<textarea rows="5" cols="130" id="rcontent" placeholder="댓글을 작성해 주세요."></textarea>
-		<c:if test="${sessionScope.mid != null }">
+	<c:if test="${sessionScope.mid != null }">
+		<textarea rows="5" cols="80" id="rcontent" placeholder="댓글을 작성해 주세요."></textarea>
 		<button type="button" id="writeReply">댓글 작성</button>
-		</c:if>
-	</div>
-	<!-- 댓글 목록 출력 -->
-	<table class="table" id="listReply"></table>
-</div>
+	</c:if>
+	<hr>
+	<div id="listReply"></div>
 <script>
-$("#writeReply").click(function(){
-	listReply();
-	reply();
-});
-function reply(){
-	var rcontent=$("#rcontent").val();
-	var bidx = "${vo.bidx}"
-	$.ajax({
-		type : "post",
-		url : "${path}/reply/insert.do",
-		headers: {
-			"Content-Type" : "application/json"
-		},
-		dateType: "text",
-		data: JSON.stringify({
-			bidx : bidx,
-			rcontent : rcontent
-		}),
-		success:function(){
-			alert("댓글이 등록되었습니다.");
-			listReply();
-		}
-	});
-}
 function listReply(){
 	$.ajax({
-		type: "get",
-		url : "${path}/reply/list.do?bidx=${vo.bidx}",
+		type : "get",
+		url : "${path}/reply/list.do/${vo.bidx}",
 		success:function(result){
 			$("#listReply").html(result);
 		}
 	});
 }
-</script>
+</script>	
+</div>
 </body>
 </html>

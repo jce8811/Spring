@@ -61,7 +61,7 @@ input{
 							<input type="password" id="mpw" name="mpw" autocomplete="off" placeholder="비밀번호"/>
 								<c:if test="${msg == 'fail'}">
 									<div style="color:red">
-										아이디 또는 비밀번호가 일치하지 않습니다.
+										아이디 또는 비밀번호가 일치하지 않습니다. 혹은 탈퇴회원입니다.
 									</div>
 								</c:if>
 							<button type="button" class="btn btn-default" onclick="chkValue()">로그인</button>

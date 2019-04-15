@@ -8,8 +8,8 @@ public class MemberVO {
 	private String mpw;
 	private String mname;
 	private String mmail;
-	private int mgrade;
 	private Date menter;
+	private String mvalue;
 	private String checkPw;
 	
 	public String getMid() {
@@ -36,17 +36,17 @@ public class MemberVO {
 	public void setMmail(String mmail) {
 		this.mmail = mmail;
 	}
-	public int getMgrade() {
-		return mgrade;
-	}
-	public void setMgrade(int mgrade) {
-		this.mgrade = mgrade;
-	}
 	public Date getMenter() {
 		return menter;
 	}
 	public void setMenter(Date menter) {
 		this.menter = menter;
+	}
+	public String getMvalue() {
+		return mvalue;
+	}
+	public void setMvalue(String mvalue) {
+		this.mvalue = mvalue;
 	}
 	public String getCheckPw() {
 		return checkPw;
@@ -54,10 +54,13 @@ public class MemberVO {
 	public void setCheckPw(String checkPw) {
 		this.checkPw = checkPw;
 	}
+	
 	@Override
 	public String toString() {
-		return "MemberVO [mid=" + mid + ", mpw=" + mpw + ", mname=" + mname + ", mmail=" + mmail + ", mgrade=" + mgrade
-				+ ", menter=" + menter + ", checkPw=" + checkPw + "]";
+		return "MemberVO [mid=" + mid + ", mpw=" + mpw + ", mname=" + mname + ", mmail=" + mmail + ", menter=" + menter
+				+ ", mvalue=" + mvalue + ", checkPw=" + checkPw + "]";
 	}
+	
+	
 	
 }

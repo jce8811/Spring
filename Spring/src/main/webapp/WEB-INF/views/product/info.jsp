@@ -32,12 +32,14 @@ $(document).ready(function(){
 				<div style="clear:both; float:right; padding-bottom:20px;">
 					<form name="cart" method="post" action="${path}/cart/insert.do">
 						<input type="hidden" name="pidx" value="${vo.pidx}">
+							<c:if test="${sessionScope.mid != 'admin'}">
 							<select name="camount">
 								<c:forEach begin="1" end="10" var="i">
 									<option value="${i}">${i}</option>
 								</c:forEach>
 							</select>&nbsp;개
 								<input type="submit" class="btn btn-default" value="장바구니 담기">
+							</c:if>	
 					</form>
 				</div>
 				<div class="panel panel-default" style="clear:both;">
@@ -48,9 +50,11 @@ $(document).ready(function(){
 					${vo.pinfo}
 				  </div>
 				</div>
-				<input type="button" id="pDelete" value="상품삭제" class="btn btn-default" style="float:right;">				
-				<a class="btn btn-default" style="float:right;" href="${path}/admin/modify.do/${vo.pidx}">수정하기</a>
-				<a class="btn btn-default" style="float:right;" href="${path}/product/list.do">목록으로</a>
+				<c:if test="${sessionScope.mid = 'admin'}">
+					<input type="button" id="pDelete" value="상품삭제" class="btn btn-default" style="float:right;">				
+					<a class="btn btn-default" style="float:right;" href="${path}/admin/modify.do/${vo.pidx}">수정하기</a>
+					<a class="btn btn-default" style="float:right;" href="${path}/product/list.do">목록으로</a>
+				</c:if>
 			</form>	
 		</div>
 </div>

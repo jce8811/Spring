@@ -148,10 +148,10 @@ public class MemberController {
 		boolean result = service.checkPw(mid, mpw);
 		if(result) {
 			service.dropMember(mid);
+			session.invalidate();
 			return "home";
 		} else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
-			session.invalidate();
 			return "member/drop";
 		}
 	}

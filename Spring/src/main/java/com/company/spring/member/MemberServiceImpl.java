@@ -27,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
 		boolean result = dao.loginCheck(vo);
 		if (result) {
 			session.setAttribute("mid", vo.getMid());
+			session.setAttribute("mvalue", vo.getMvalue());
 		}
 		return result;
 	}

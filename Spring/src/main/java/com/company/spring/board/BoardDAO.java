@@ -34,7 +34,7 @@ public class BoardDAO {
 		sqlsession.update("board.update", vo);
 	}
 	public void delete(int bidx) throws Exception{
-		sqlsession.delete("board.delete", bidx);
+		sqlsession.update("board.delete", bidx);
 	}
 	// 검색 결과 목록
 	public int countSearch(SearchCriteria scri) throws Exception{

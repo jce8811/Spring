@@ -9,13 +9,6 @@
 </head>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <c:import url="/resources/nav/header.jsp"/>
-<script>
-	$(document).ready(function(){
-		$("#pWrite").click(function(){
-			location.href="${path}/admin/upload.do";
-		});
-	});
-</script>
 <style>
 .container {
 	margin-top : 150px;
@@ -48,7 +41,6 @@ color:#000;
 	  			</li>
 	  	</c:forEach>
 	 </ul>	
-	<a class="btn btn-default" id="pWrite" style="float:right;">상품등록</a>
 	<div class="text-center">
 			 <ul class="pagination">
 			  <c:if test="${pagemaker.prev}">

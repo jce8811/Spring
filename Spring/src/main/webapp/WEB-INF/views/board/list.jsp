@@ -9,7 +9,7 @@
 </head>
 <style>
 .container{
-	margin-top: 200px;
+	margin-top: 150px;
 }
 a:link { 
 color: black; text-decoration: none;
@@ -26,6 +26,7 @@ color: black; text-decoration: none;
 <body>
 <div class="container">
 		<h3>게시판</h3>
+		<hr>
 		<table class="table">
 			<thead>
 				<tr>
@@ -44,7 +45,7 @@ color: black; text-decoration: none;
 								<td>${row.bidx}</td>
 								<td><a href="${path}/board/content.do${pagemaker.makeSearch(pagemaker.cri.page)}&bidx=${row.bidx}">${row.btitle}
 									<c:if test="${row.bcntNum >0}">
-									<span style="color:red;">[${row.bcntNum}]</span>
+									<span style="color:blue;">[${row.bcntNum}]</span>
 									</c:if></a>
 								</td>
 								<td>${row.bwriter}</td>
@@ -55,7 +56,7 @@ color: black; text-decoration: none;
 						<c:otherwise>
 						<tr>
 							<td>${row.bidx}</td>
-							<td>----삭제된 게시물입니다.----</td>
+							<td style="color:red">----삭제된 게시물입니다.----</td>
 							<td>${row.bwriter}</td>
 							<td><fmt:formatDate value="${row.bdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							<td>${row.bcnt}</td>

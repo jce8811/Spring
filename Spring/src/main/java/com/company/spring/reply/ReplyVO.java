@@ -9,6 +9,7 @@ public class ReplyVO {
 	private String rwriter;
 	private Date rdate;
 	private String mid;
+	private String rvalue;
 	
 	public Date getRdate() {
 		return rdate;
@@ -48,11 +49,16 @@ public class ReplyVO {
 		this.mid = mid;
 	}
 	
-	@Override
-	public String toString() {
-		return "ReplyVO [ridx=" + ridx + ", bidx=" + bidx + ", rcontent=" + rcontent + ", rwriter=" + rwriter + ", mid="
-				+ mid + "]";
+	public String getRvalue() {
+		return rvalue;
+	}
+	public void setRvalue(String rvalue) {
+		this.rvalue = rvalue;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "ReplyVO [ridx=" + ridx + ", bidx=" + bidx + ", rcontent=" + rcontent + ", rwriter=" + rwriter
+				+ ", rdate=" + rdate + ", mid=" + mid + ", rvalue=" + rvalue + "]";
+	}
 }

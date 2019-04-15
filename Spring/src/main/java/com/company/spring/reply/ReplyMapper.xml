@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reply">
-	<!-- 리플 작성 -->
+	<!-- 댓글 작성 -->
 	<insert id="insert">
 		INSERT INTO reply_tb
-			(bidx, rcontent, rwriter, rdate)
-		VALUES (#{bidx}, #{rcontent}, #{rwriter}, now())	
+			(ridx, bidx, rcontent, rwriter, rdate, rvalue)
+		VALUES (#{ridx}, #{bidx}, #{rcontent}, #{rwriter}, now(), 'y')	
 	</insert>
-	<!-- 리플 리스트 -->
+	<!-- 댓글 리스트 -->
 	<select id="list" resultType="com.company.spring.reply.ReplyVO">
-		SELECT ridx, bidx, rcontent, rwriter, mid, rdate
+		SELECT ridx, bidx, rcontent, rwriter, mid, rdate, rvalue
 		FROM reply_tb r, member_tb m
 		WHERE r.rwriter = m.mid AND bidx = #{bidx}
 		ORDER BY ridx
 	</select>
-	<!-- 리플 상세보기 -->
+	<!-- 댓글 상세 보기 -->
 	<select id="detail" resultType="com.company.spring.reply.ReplyVO">
-		SELECT ridx, bidx, rcontent, rwriter, mid, rdate
-		FROM reply tb
+		SELECT *
+		FROM reply_tb
 		WHERE ridx = #{ridx}
 	</select>
-	<!-- 리플 수정 -->
-	<update id="modify">
+	<!-- 댓글 수정 -->
+	<update id="update">
 		UPDATE reply_tb
 		SET rcontent = #{rcontent}
 		WHERE ridx = #{ridx}
 	</update>
-	<!-- 리플 삭제 -->
-	<delete id="delete">
-		DELETE FROM reply_tb
+	<!-- 댓글 삭제 -->
+	<update id="delete">
+		UPDATE reply_tb
+		SET rvalue = 'n'
 		WHERE ridx = #{ridx}
-	</delete>
+	</update>
 </mapper>

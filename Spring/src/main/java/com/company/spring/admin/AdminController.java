@@ -1,19 +1,24 @@
 package com.company.spring.admin;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.company.spring.board.BoardVO;
+import com.company.spring.member.MemberVO;
 import com.company.spring.product.ProductVO;
+import com.company.spring.reply.ReplyVO;
 import com.company.spring.utils.UploadFileUtils;
 
 @Controller
@@ -24,6 +29,27 @@ public class AdminController {
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
+	// 전체 회원 리스트
+	@RequestMapping(value="/admin/memberList.do", method=RequestMethod.GET)
+	public String memberList(Model model) throws Exception{
+		List<MemberVO> list = service.memberList();
+		model.addAttribute("list", list);
+		return "admin/memberList";
+	}
+	// 전체 게시물 리스트
+	@RequestMapping(value="/admin/boardList.do", method=RequestMethod.GET)
+	public String boardList(Model model) throws Exception{
+		List<BoardVO> list = service.boardList();
+		model.addAttribute("list", list);
+		return "admin/boardList";
+	}
+	// 전체 댓글 리스트
+	@RequestMapping(value="/admin/replyList.do", method=RequestMethod.GET)
+	public String replyList(Model model) throws Exception{
+		List<ReplyVO> list = service.replyList();
+		model.addAttribute("list", list);
+		return "admin/replyList";
+	}
 	// 상품 업로드페이지
 	@RequestMapping(value="/admin/upload.do", method=RequestMethod.GET)
 	public String upload() throws Exception{
