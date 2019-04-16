@@ -32,4 +32,8 @@ public class ReplyDAO {
 		sqlsession.update("reply.update", vo);
 	}
 
+	public int listCount() {
+		return sqlsession.selectOne("reply.listCount");
+	}
+
 }

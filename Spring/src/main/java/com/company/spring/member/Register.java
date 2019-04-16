@@ -2,6 +2,7 @@ package com.company.spring.member;
 
 public class Register {
 	
+	private int midx;
 	private String mid;
 	private String mpw;
 	private String checkPw;
@@ -12,6 +13,14 @@ public class Register {
 		return mpw.equals(checkPw);
 	}
 	
+	public int getMidx() {
+		return midx;
+	}
+
+	public void setMidx(int midx) {
+		this.midx = midx;
+	}
+
 	public String getMid() {
 		return mid;
 	}

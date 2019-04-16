@@ -36,4 +36,5 @@ public class ReplyServiceImpl implements ReplyService {
 	public void update(ReplyVO vo) throws Exception {
 		dao.update(vo);
 	}
+
 }

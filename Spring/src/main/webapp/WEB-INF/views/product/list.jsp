@@ -55,7 +55,7 @@ color:#000;
 			   <li><a href="list.do${pagemaker.makeQuery(pagemaker.endPage + 1)}">다음</a></li>
 			  </c:if> 
 			 </ul>
-		</div>
+	</div>	
 </div>
 </body>
 </html>

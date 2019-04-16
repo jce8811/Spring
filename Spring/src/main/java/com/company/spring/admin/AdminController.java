@@ -19,6 +19,8 @@ import com.company.spring.board.BoardVO;
 import com.company.spring.member.MemberVO;
 import com.company.spring.product.ProductVO;
 import com.company.spring.reply.ReplyVO;
+import com.company.spring.utils.CriteriaAdmin;
+import com.company.spring.utils.PageMakerAdmin;
 import com.company.spring.utils.UploadFileUtils;
 
 @Controller
@@ -31,24 +33,49 @@ public class AdminController {
 	
 	// 전체 회원 리스트
 	@RequestMapping(value="/admin/memberList.do", method=RequestMethod.GET)
-	public String memberList(Model model) throws Exception{
-		List<MemberVO> list = service.memberList();
+	public String memberList(Model model, CriteriaAdmin cria, PageMakerAdmin pagemakeradmin) throws Exception{
+		List<MemberVO> list = service.memberList(cria);
 		model.addAttribute("list", list);
+		
+		pagemakeradmin.setCria(cria);
+		pagemakeradmin.setTotalCount(service.countMember());
+		model.addAttribute("pagemakeradmin", pagemakeradmin);
 		return "admin/memberList";
 	}
+	// 회원 강퇴
+	@RequestMapping(value="/admin/memberDrop.do/{mid}")
+	public String memberDrop(@PathVariable("mid") String mid) throws Exception{
+		service.memberDrop(mid);
+		return "redirect:/admin/memberList.do";
+		}
+		// 상
 	// 전체 게시물 리스트
 	@RequestMapping(value="/admin/boardList.do", method=RequestMethod.GET)
-	public String boardList(Model model) throws Exception{
-		List<BoardVO> list = service.boardList();
+	public String boardList(Model model, CriteriaAdmin cria, PageMakerAdmin pagemakeradmin) throws Exception{
+		List<BoardVO> list = service.boardList(cria);
 		model.addAttribute("list", list);
+		
+		pagemakeradmin.setCria(cria);
+		pagemakeradmin.setTotalCount(service.countBoard());
+		model.addAttribute("pagemakeradmin", pagemakeradmin);
 		return "admin/boardList";
 	}
 	// 전체 댓글 리스트
 	@RequestMapping(value="/admin/replyList.do", method=RequestMethod.GET)
-	public String replyList(Model model) throws Exception{
-		List<ReplyVO> list = service.replyList();
+	public String replyList(Model model, CriteriaAdmin cria, PageMakerAdmin pagemakeradmin) throws Exception{
+		List<ReplyVO> list = service.replyList(cria);
 		model.addAttribute("list", list);
+		
+		pagemakeradmin.setCria(cria);
+		pagemakeradmin.setTotalCount(service.countReply());
+		model.addAttribute("pagemakeradmin", pagemakeradmin);
 		return "admin/replyList";
+	}
+	// 댓글 삭제
+	@RequestMapping(value="/admin/replyDelete.do/{ridx}")
+	public String replyDelete(@PathVariable("ridx") int ridx) throws Exception{
+		service.replyDelete(ridx);
+		return "redirect:/admin/replyList.do";
 	}
 	// 상품 업로드페이지
 	@RequestMapping(value="/admin/upload.do", method=RequestMethod.GET)

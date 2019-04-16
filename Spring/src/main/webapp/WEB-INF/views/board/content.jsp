@@ -72,7 +72,7 @@ $(document).ready(function(){
 				<textarea rows="15" cols="160" readonly="readonly">${vo.bcontent}</textarea>
 			</div>	
 		<input type="hidden" name="bidx" id="bidx" value="${vo.bidx}">
-		<c:if test="${sessionScope.mid == vo.bwriter}">
+		<c:if test="${sessionScope.mid == vo.bwriter || sessionScope.mid == 'admin'}">
 			<a class="btn btn-default" style="float:right;" href="${path}/board/updateRead.do?bidx=${vo.bidx}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">글수정</a>
 			<input type="button" id="bDelete" value="글삭제" class="btn btn-default" style="float:right;">
 		</c:if>

@@ -32,7 +32,7 @@ $(document).ready(function(){
 				<div style="clear:both; float:right; padding-bottom:20px;">
 					<form name="cart" method="post" action="${path}/cart/insert.do">
 						<input type="hidden" name="pidx" value="${vo.pidx}">
-							<c:if test="${sessionScope.mid != 'admin'}">
+							<c:if test="${sessionScope.mid == null || sessionScope.mid != 'admin'}">
 							<select name="camount">
 								<c:forEach begin="1" end="10" var="i">
 									<option value="${i}">${i}</option>
@@ -50,11 +50,11 @@ $(document).ready(function(){
 					${vo.pinfo}
 				  </div>
 				</div>
-				<c:if test="${sessionScope.mid = 'admin'}">
+				<c:if test="${sessionScope.mid == 'admin'}">
 					<input type="button" id="pDelete" value="상품삭제" class="btn btn-default" style="float:right;">				
 					<a class="btn btn-default" style="float:right;" href="${path}/admin/modify.do/${vo.pidx}">수정하기</a>
-					<a class="btn btn-default" style="float:right;" href="${path}/product/list.do">목록으로</a>
 				</c:if>
+					<a class="btn btn-default" style="float:right;" href="${path}/product/list.do">목록으로</a>
 			</form>	
 		</div>
 </div>
