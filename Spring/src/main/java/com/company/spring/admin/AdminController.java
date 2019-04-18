@@ -48,7 +48,6 @@ public class AdminController {
 		service.memberDrop(mid);
 		return "redirect:/admin/memberList.do";
 		}
-		// 상
 	// 전체 게시물 리스트
 	@RequestMapping(value="/admin/boardList.do", method=RequestMethod.GET)
 	public String boardList(Model model, CriteriaAdmin cria, PageMakerAdmin pagemakeradmin) throws Exception{

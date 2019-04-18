@@ -79,8 +79,8 @@ color: black; text-decoration: none;
 			   <li><a href="boardList.do${pagemakeradmin.makeQueryAdmin(pagemakeradmin.startPage - 1)}">이전</a></li>
 			  </c:if> 
 			  
-			  <c:forEach begin="${pagemakeradmin.startPage}" end="${pagemakeradmin.endPage}" var="bidx">
-			   <li><a href="boardList.do${pagemakeradmin.makeQueryAdmin(bidx)}">${bidx}</a></li>
+			  <c:forEach begin="${pagemakeradmin.startPage}" end="${pagemakeradmin.endPage}" var="idx">
+			   <li><a href="boardList.do${pagemakeradmin.makeQueryAdmin(idx)}">${idx}</a></li>
 			  </c:forEach>
 			    
 			  <c:if test="${pagemakeradmin.next && pagemakeradmin.endPage > 0}">

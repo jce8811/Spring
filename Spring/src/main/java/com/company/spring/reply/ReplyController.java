@@ -50,7 +50,7 @@ public class ReplyController {
 	public ModelAndView list(@PathVariable("bidx") int bidx, ModelAndView mv) throws Exception{
 		List<ReplyVO> list = service.list(bidx);
 		mv.setViewName("reply/list");
-		mv.addObject("List", list);
+		mv.addObject("list", list);
 		return mv;
 	}
 //	@RequestMapping(value="/list.do")

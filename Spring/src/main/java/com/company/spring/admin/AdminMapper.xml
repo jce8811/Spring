@@ -33,7 +33,6 @@
 		    ) bl
 		 where rNum between #{rowStart} and #{rowEnd}
 		 order by bidx desc;
-	
 	</select>
 	<select id="countBoard" resultType="int">
 		SELECT count(bidx)

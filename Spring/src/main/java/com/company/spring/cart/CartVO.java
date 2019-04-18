@@ -2,6 +2,7 @@ package com.company.spring.cart;
 
 public class CartVO {
 	private int cidx;
+	private String cid;
 	private String mid;
 	private int pidx;
 	private String pname;
@@ -14,6 +15,12 @@ public class CartVO {
 	}
 	public void setCidx(int cidx) {
 		this.cidx = cidx;
+	}
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 	public String getMid() {
 		return mid;
@@ -54,8 +61,8 @@ public class CartVO {
 	
 	@Override
 	public String toString() {
-		return "CartVO [cidx=" + cidx + ", mid=" + mid + ", pidx=" + pidx + ", pname=" + pname + ", pprice=" + pprice
-				+ ", camount=" + camount + ", cprice=" + cprice + "]";
+		return "CartVO [cidx=" + cidx + ", cid=" + cid + ", mid=" + mid + ", pidx=" + pidx + ", pname=" + pname
+				+ ", pprice=" + pprice + ", camount=" + camount + ", cprice=" + cprice + "]";
 	}
-	
+		
 }

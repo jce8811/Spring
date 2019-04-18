@@ -25,7 +25,6 @@ $(document).ready(function(){
 		<img src="${path}/${vo.pthumbimg}" width="400px" height="300px">
 	</div>	
 		<div class="col-sm-6">
-			<form id="form1" name="form1" method="post">
 				<h4>${vo.pname}</h4>
 				<hr>
 				<h4 style="float:right; ">판매가격: <fmt:formatNumber value="${vo.pprice}" pattern="###,###,###"/> 원</h4>
@@ -51,11 +50,12 @@ $(document).ready(function(){
 				  </div>
 				</div>
 				<c:if test="${sessionScope.mid == 'admin'}">
-					<input type="button" id="pDelete" value="상품삭제" class="btn btn-default" style="float:right;">				
+					<form id="form1" name="form1" method="post">
+						<input type="button" id="pDelete" value="상품삭제" class="btn btn-default" style="float:right;">
+					</form>					
 					<a class="btn btn-default" style="float:right;" href="${path}/admin/modify.do/${vo.pidx}">수정하기</a>
 				</c:if>
 					<a class="btn btn-default" style="float:right;" href="${path}/product/list.do">목록으로</a>
-			</form>	
 		</div>
 </div>
 </body>

@@ -1,5 +1,7 @@
 package com.company.spring.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,8 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.company.spring.board.BoardVO;
 import com.company.spring.member.MemberService;
 import com.company.spring.member.MemberVO;
+import com.company.spring.reply.ReplyVO;
+import com.company.spring.utils.Criteria;
+import com.company.spring.utils.PageMaker;
 
 @Controller
 @RequestMapping("/member/*")
@@ -23,6 +29,7 @@ public class MemberController {
 	
 	@Autowired
 	MemberService service;
+	
 	
 	@RequestMapping(value="/step.do")
 	public String step() throws Exception{
@@ -166,4 +173,27 @@ public class MemberController {
 		}
 		return result;
 	}
+	
+	// 내 글 목록
+	@RequestMapping(value="/myBoardWrite.do", method=RequestMethod.GET)
+	public String myBoardWrite(Model model, Criteria cri, PageMaker pagemaker) throws Exception{
+		List<BoardVO> list = service.myBoardWrite(cri);
+		model.addAttribute("list", list);
+		
+		pagemaker.setCri(cri);
+		pagemaker.setTotalCount(service.countMyBoard());
+		model.addAttribute("pagemaker", pagemaker);
+		return "member/myBoardWrite";
+	}
+	// 내 댓글 목록
+		@RequestMapping(value="/myReplyWrite.do", method=RequestMethod.GET)
+		public String myReplyWrite(Model model, Criteria cri, PageMaker pagemaker) throws Exception{
+			List<ReplyVO> list = service.myReplyWrite(cri);
+			model.addAttribute("list", list);
+			
+			pagemaker.setCri(cri);
+			pagemaker.setTotalCount(service.countMyReply());
+			model.addAttribute("pagemaker", pagemaker);
+			return "member/myReplyWrite";
+		}
 }

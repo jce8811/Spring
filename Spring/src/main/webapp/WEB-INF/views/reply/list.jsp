@@ -22,7 +22,7 @@ function showReplyModify(ridx){
 </script>
 <body>
 <div class="container">
-		<c:forEach var="row" items="${List}">
+		<c:forEach var="row" items="${list}">
 		<c:choose>
 			<c:when test="${row.rvalue == 'y'}">
 			<div style="margin-bottom:20px;">

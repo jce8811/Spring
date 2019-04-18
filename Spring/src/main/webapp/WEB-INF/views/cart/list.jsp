@@ -40,7 +40,7 @@
 				</tr>
 				<c:forEach var="row" items="${map.list}">
 					<tr>
-						<td>${row.pname}</td>
+						<td><a href="${path}/product/info.do/${row.pidx}" target="_blank">${row.pname}</a></td>
 						<td><fmt:formatNumber value="${row.pprice}" pattern="###,###,###"/> 원</td>
 						<td>
 							<input type="number" style="width:50px;" name="camount" value="${row.camount}" min="1">

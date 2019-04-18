@@ -36,7 +36,7 @@
 	<c:import url="/resources/nav/sidebar.jsp"/>
 	</div>
 	<c:choose>
-		<c:when test="${sessionScope.mvalu == '0' }">
+		<c:when test="${sessionScope.mid != 'admin' }">
 			<div class="col-sm-6" style="margin-top:50px;">
 					<form name="info" method="post" action="${path}/member/infoUpdate.do" onsubmit="return updateInfo()">
 							<div class="form-group">	

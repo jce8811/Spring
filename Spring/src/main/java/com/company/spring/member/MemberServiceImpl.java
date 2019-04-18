@@ -1,9 +1,15 @@
 package com.company.spring.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.company.spring.board.BoardVO;
+import com.company.spring.reply.ReplyVO;
+import com.company.spring.utils.Criteria;
 
 
 @Service
@@ -79,6 +85,30 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO checkId(String mid) throws Exception {
 		return dao.checkId(mid);
+	}
+
+
+	@Override
+	public List<BoardVO> myBoardWrite(Criteria cri) throws Exception {
+		return dao.myBoardWrite(cri);
+	}
+
+
+	@Override
+	public int countMyBoard() throws Exception {
+		return dao.countMyBoard();
+	}
+
+
+	@Override
+	public List<ReplyVO> myReplyWrite(Criteria cri) throws Exception {
+		return dao.myReplyWrite(cri);
+	}
+
+
+	@Override
+	public int countMyReply() throws Exception {
+		return dao.countMyReply();
 	}
 
 

@@ -68,4 +68,37 @@
  	FROM member_tb
  	WHERE mmail = #{mmail}
  	</select>
+ 	
+ 	<!-- 내가 쓴 글 -->
+ 	<select id="myBoardWrite" resultType="com.company.spring.board.BoardVO" parameterType="com.company.spring.utils.Criteria">
+	select @rownum := @rownum + 1, bidx, bwriter, btitle, bcontent, bdate, bvalue
+		from( select @rownum := 0, bidx, bwriter, btitle, bcontent, bdate, bvalue, mid,
+			row_number() over(order by bidx desc) as rNum
+		    from board_tb b, member_tb m
+		    where b.bwriter = m.mid
+		    ) bl
+		 where rNum between #{rowStart} and #{rowEnd}
+		 order by bidx desc;
+	</select>
+	<select id="countMyBoard" resultType="int">
+		SELECT count(bidx)
+		FROM board_tb
+		where bidx
+	</select>
+	<!-- 내가 쓴 댓글 -->
+	<select id="myReplyWrite" resultType="com.company.spring.reply.ReplyVO" parameterType="com.company.spring.utils.Criteria">
+		select @rownum := @rownum + 1, ridx, bidx, rcontent, rwriter, mid, rdate, rvalue
+		from( select @rownum := 0, ridx, bidx, rcontent, rwriter, mid, rdate, rvalue,
+			row_number() over(order by ridx desc) as rNum
+		    from reply_tb r, member_tb m
+		    where r.rwriter = m.mid
+		    ) rl
+		where rNum between #{rowStart} and #{rowEnd}
+		order by ridx desc;
+	</select>
+	<select id="countMyReply" resultType="int">
+		SELECT count(ridx)
+		FROM reply_tb
+		where ridx
+	</select>
 </mapper>

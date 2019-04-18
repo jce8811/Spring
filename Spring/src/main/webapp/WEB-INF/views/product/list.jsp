@@ -47,8 +47,8 @@ color:#000;
 			   <li><a href="list.do${pagemaker.makeQuery(pagemaker.startPage - 1)}">이전</a></li>
 			  </c:if> 
 			  
-			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="pidx">
-			   <li><a href="list.do${pagemaker.makeQuery(pidx)}">${pidx}</a></li>
+			  <c:forEach begin="${pagemaker.startPage}" end="${pagemaker.endPage}" var="idx">
+			   <li><a href="list.do${pagemaker.makeQuery(idx)}">${idx}</a></li>
 			  </c:forEach>
 			    
 			  <c:if test="${pagemaker.next && pagemaker.endPage > 0}">

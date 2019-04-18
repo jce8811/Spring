@@ -1,6 +1,7 @@
 package com.company.spring.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.company.spring.board.BoardVO;
+import com.company.spring.reply.ReplyVO;
+import com.company.spring.utils.Criteria;
 
 @Repository
 public class MemberDAO{
@@ -79,6 +84,22 @@ public class MemberDAO{
 
 	public MemberVO selectByEmail(String mmail) {
 		return (MemberVO)sqlsession.selectOne("member.selectByEmail", mmail);
+	}
+
+	public List<BoardVO> myBoardWrite(Criteria cri) {
+		return sqlsession.selectList("member.myBoardWrite", cri);
+	}
+
+	public int countMyBoard() {
+		return sqlsession.selectOne("member.countMyBoard");
+	}
+
+	public List<ReplyVO> myReplyWrite(Criteria cri) {
+		return sqlsession.selectList("member.myReplyWrite", cri);
+	}
+
+	public int countMyReply() {
+		return sqlsession.selectOne("member.countMyReply");
 	}
 
 }

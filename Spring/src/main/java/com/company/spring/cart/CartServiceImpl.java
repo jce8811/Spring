@@ -17,18 +17,18 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<CartVO> list(String mid) throws Exception {
-		return dao.list(mid);
+	public List<CartVO> list(String cid) throws Exception {
+		return dao.list(cid);
 	}
 
 	@Override
-	public int sumPrice(String mid) throws Exception {
-		return dao.sumPrice(mid);
+	public int sumPrice(String cid) throws Exception {
+		return dao.sumPrice(cid);
 	}
 
 	@Override
-	public int countCart(int pidx, String mid) throws Exception {
-		return dao.countCart(pidx, mid);
+	public int countCart(int pidx, String cid) throws Exception {
+		return dao.countCart(pidx, cid);
 	}
 
 	@Override

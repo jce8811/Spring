@@ -18,18 +18,18 @@ public class CartDAO {
 		sqlsession.insert("cart.insert", vo);
 	}
 
-	public List<CartVO> list(String mid) {
-		return sqlsession.selectList("cart.list", mid);
+	public List<CartVO> list(String cid) {
+		return sqlsession.selectList("cart.list", cid);
 	}
 
-	public int sumPrice(String mid) {
-		return sqlsession.selectOne("cart.sumPrice", mid);
+	public int sumPrice(String cid) {
+		return sqlsession.selectOne("cart.sumPrice", cid);
 	}
 
-	public int countCart(int pidx, String mid) {
+	public int countCart(int pidx, String cid) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("pidx", pidx);
-		map.put("mid", mid);
+		map.put("cid", cid);
 		return sqlsession.selectOne("cart.countCart", map);
 	}
 
